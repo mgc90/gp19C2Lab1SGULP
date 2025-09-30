@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Alumno;
 
  
@@ -39,6 +41,7 @@ public class AlumnoData {
                 System.out.println("No se pudo obtener ID");
             }
             ps.close();
+            rs.close();
             System.out.println("Guardado con éxito!");
             
         }catch(SQLException e){//cuando no se puede hacer nada relacionado con SQL
@@ -64,10 +67,96 @@ public class AlumnoData {
             ps.close();
             System.out.println("Actualizado con éxito!");
             
-        }catch(SQLException e){//cuando no se puede hacer nada relacionado con SQL
+        }catch(SQLException e){
             System.out.println("Error al actualizar datos" + e.getMessage());
         }
     }
     
+    public void eliminarAlumno(Alumno a){
+        String query = "DELETE FROM alumno WHERE idAlumno='?'"; 
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, a.getIdAlumno());
+            ps.executeUpdate();
+            
+            ps.close();
+            System.out.println("Actualizado con éxito!");
+            
+        }catch(SQLException e){
+            System.out.println("Error al eliminar datos" + e.getMessage());
+        }
+    }
     
+    public void bajaAlumno(Alumno a){
+        String query = "UPDATE alumno SET estado='?') WHERE idAlumno='?'"; 
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(query);
+           
+            ps.setBoolean(5, false);
+            ps.executeUpdate();
+            
+            ps.close();
+            System.out.println("Alumno dado de baja con éxito!");
+            
+        }catch(SQLException e){
+            System.out.println("Error al actualizar datos" + e.getMessage());
+        }
+    }
+    
+    public Alumno buscarAlumno(int id){
+        Alumno a = null;
+        String query = "SELECT * FROM alumno WHERE idAlumno='?'";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                a = new Alumno();
+                a.setIdAlumno(rs.getInt("idAlumno"));
+                a.setNombre(rs.getString("nombre"));
+                a.setApellido(rs.getString("apellido"));
+                a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                a.setEstado(rs.getBoolean("estado"));
+            }
+            ps.close();
+            rs.close();
+            System.out.println("Alumno recuperado con éxito!");
+            
+        }catch(SQLException e){//cuando no se puede hacer nada relacionado con SQL
+            System.out.println("Error al guardar datos" + e.getMessage());
+        }
+        return a;
+    }
+    
+    public List<Alumno> listarAlumnos(int id){
+        Alumno a = null;
+        List<Alumno> alumnos = new ArrayList<>();
+        String query = "SELECT * FROM alumno";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                a = new Alumno();
+                a.setIdAlumno(rs.getInt("idAlumno"));
+                a.setNombre(rs.getString("nombre"));
+                a.setApellido(rs.getString("apellido"));
+                a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                a.setEstado(rs.getBoolean("estado"));
+                alumnos.add(a);
+            }
+            ps.close();
+            rs.close();
+            System.out.println("Listado de alumnos recuperado con éxito!");
+            
+        }catch(SQLException e){//cuando no se puede hacer nada relacionado con SQL
+            System.out.println("Error al recuperar datos" + e.getMessage());
+        }
+        return alumnos;
+    }
 }
