@@ -51,8 +51,8 @@ public class AlumnoData {
     
     
     public void actualizarAlumno(Alumno a){
-        String query = "UPDATE alumno SET dni='?', apellido='?', nombre='?', "
-                + "fechaNacimiento='?', estado='?') WHERE idAlumno='?'"; 
+        String query = "UPDATE alumno SET dni=?, apellido=?, nombre=?, "
+                + "fechaNacimiento=?, estado=? WHERE idAlumno=?"; 
         
         try{
             PreparedStatement ps = con.prepareStatement(query);
@@ -73,7 +73,7 @@ public class AlumnoData {
     }
     
     public void eliminarAlumno(Alumno a){
-        String query = "DELETE FROM alumno WHERE idAlumno='?'"; 
+        String query = "DELETE FROM alumno WHERE idAlumno=?"; 
         
         try{
             PreparedStatement ps = con.prepareStatement(query);
@@ -89,7 +89,7 @@ public class AlumnoData {
     }
     
     public void bajaAlumno(Alumno a){
-        String query = "UPDATE alumno SET estado='?') WHERE idAlumno='?'"; 
+        String query = "UPDATE alumno SET estado=? WHERE idAlumno=?"; 
         
         try{
             PreparedStatement ps = con.prepareStatement(query);
@@ -107,7 +107,7 @@ public class AlumnoData {
     
     public Alumno buscarAlumno(int id){
         Alumno a = null;
-        String query = "SELECT * FROM alumno WHERE idAlumno='?'";
+        String query = "SELECT * FROM alumno WHERE idAlumno=?";
         
         try{
             PreparedStatement ps = con.prepareStatement(query);
