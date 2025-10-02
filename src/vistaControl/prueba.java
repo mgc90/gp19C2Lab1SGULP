@@ -14,7 +14,7 @@ public class prueba {
     public static void main(String[] args) {
         
         try{
-            Conexion c = new Conexion("jdbc:mariadb://localhost/bduniversidad", "root", "");
+            Conexion c = new Conexion("jdbc:mariadb://localhost/GP19_bd_universidad", "root", "");
             AlumnoData ad = new AlumnoData(c);
             Alumno a1 = new Alumno(99999, "Correa", "Matías", LocalDate.of(1990, 07, 23), true);
             a1.setIdAlumno(1);
