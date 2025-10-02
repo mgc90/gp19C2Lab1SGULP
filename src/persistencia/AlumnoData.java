@@ -52,7 +52,7 @@ public class AlumnoData {
     
     public void actualizarAlumno(Alumno a){
         String query = "UPDATE alumno SET dni=?, apellido=?, nombre=?, "
-                + "fechaNacimiento=?, estado=? WHERE idAlumno=?"; 
+                + "fechaNacimiento=?, estado=? WHERE id_alumno=?"; 
         
         try{
             PreparedStatement ps = con.prepareStatement(query);
@@ -73,7 +73,7 @@ public class AlumnoData {
     }
     
     public void eliminarAlumno(Alumno a){
-        String query = "DELETE FROM alumno WHERE idAlumno=?"; 
+        String query = "DELETE FROM alumno WHERE id_alumno=?"; 
         
         try{
             PreparedStatement ps = con.prepareStatement(query);
@@ -89,12 +89,13 @@ public class AlumnoData {
     }
     
     public void bajaAlumno(Alumno a){
-        String query = "UPDATE alumno SET estado=? WHERE idAlumno=?"; 
+        String query = "UPDATE alumno SET estado=? WHERE id_alumno=?"; 
         
         try{
             PreparedStatement ps = con.prepareStatement(query);
            
-            ps.setBoolean(5, false);
+            ps.setBoolean(1, false);
+            ps.setInt(2, a.getIdAlumno());
             ps.executeUpdate();
             
             ps.close();
@@ -107,7 +108,7 @@ public class AlumnoData {
     
     public Alumno buscarAlumno(int id){
         Alumno a = null;
-        String query = "SELECT * FROM alumno WHERE idAlumno=?";
+        String query = "SELECT * FROM alumno WHERE id_alumno=?";
         
         try{
             PreparedStatement ps = con.prepareStatement(query);
@@ -116,7 +117,7 @@ public class AlumnoData {
             
             while(rs.next()){
                 a = new Alumno();
-                a.setIdAlumno(rs.getInt("idAlumno"));
+                a.setIdAlumno(rs.getInt("id_alumno"));
                 a.setNombre(rs.getString("nombre"));
                 a.setApellido(rs.getString("apellido"));
                 a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
@@ -124,7 +125,9 @@ public class AlumnoData {
             }
             ps.close();
             rs.close();
-            System.out.println("Alumno recuperado con éxito!");
+            System.out.println(a);
+            System.out.println("Alumno de id " + id + " recuperado con éxito:");
+            
             
         }catch(SQLException e){//cuando no se puede hacer nada relacionado con SQL
             System.out.println("Error al guardar datos" + e.getMessage());
@@ -132,7 +135,7 @@ public class AlumnoData {
         return a;
     }
     
-    public List<Alumno> listarAlumnos(int id){
+    public List<Alumno> listarAlumnos(){
         Alumno a = null;
         List<Alumno> alumnos = new ArrayList<>();
         String query = "SELECT * FROM alumno";
@@ -143,12 +146,14 @@ public class AlumnoData {
             
             while(rs.next()){
                 a = new Alumno();
-                a.setIdAlumno(rs.getInt("idAlumno"));
+                a.setIdAlumno(rs.getInt("id_alumno"));
+                a.setDni(rs.getInt("dni"));
                 a.setNombre(rs.getString("nombre"));
                 a.setApellido(rs.getString("apellido"));
                 a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));
                 alumnos.add(a);
+                System.out.println(a.toString());
             }
             ps.close();
             rs.close();

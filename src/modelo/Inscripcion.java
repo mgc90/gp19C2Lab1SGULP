@@ -4,11 +4,11 @@ package modelo;
 
 public class Inscripcion {
     private int idInscripto;
-    private int nota;
+    private double nota;
     private int idAlumno;
     private int idMateria;
 
-    public Inscripcion(int idInscripto, int nota, int idAlumno, int idMateria) {
+    public Inscripcion(int idInscripto, double nota, int idAlumno, int idMateria) {
         this.idInscripto = idInscripto;
         this.nota = nota;
         this.idAlumno = idAlumno;
@@ -23,7 +23,7 @@ public class Inscripcion {
         this.idInscripto = idInscripto;
     }
 
-    public int getNota() {
+    public double getNota() {
         return nota;
     }
 
