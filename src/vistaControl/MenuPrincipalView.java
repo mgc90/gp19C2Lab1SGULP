@@ -38,6 +38,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         jMenuInscripciones = new javax.swing.JMenu();
         jMenuAlumnos = new javax.swing.JMenu();
         jMIFormAlumnos = new javax.swing.JMenuItem();
+        jmiListaAlumnos = new javax.swing.JMenuItem();
         jMenuMateria = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,7 +47,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 735, Short.MAX_VALUE)
+            .addGap(0, 774, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -66,6 +67,14 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         });
         jMenuAlumnos.add(jMIFormAlumnos);
 
+        jmiListaAlumnos.setText("Lista Alumnos");
+        jmiListaAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListaAlumnosActionPerformed(evt);
+            }
+        });
+        jMenuAlumnos.add(jmiListaAlumnos);
+
         jMenuBar1.add(jMenuAlumnos);
 
         jMenuMateria.setText("Materia");
@@ -77,10 +86,10 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,6 +111,17 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         fav.setVisible(true);
         fav.moveToFront();
     }//GEN-LAST:event_jMIFormAlumnosActionPerformed
+
+    private void jmiListaAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListaAlumnosActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ListaAlumnosView lav = new ListaAlumnosView(alumnoData);
+        Escritorio.add(lav);
+        lav.setVisible(true);
+        lav.moveToFront();
+        
+    }//GEN-LAST:event_jmiListaAlumnosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,5 +165,6 @@ public class MenuPrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuInscripciones;
     private javax.swing.JMenu jMenuMateria;
+    private javax.swing.JMenuItem jmiListaAlumnos;
     // End of variables declaration//GEN-END:variables
 }
