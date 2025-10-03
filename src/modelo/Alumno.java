@@ -2,7 +2,7 @@ package modelo;
 
 // @author Matías Correa, Grupo 19, Comisión 2;
 
-import java.sql.Date;
+
 import java.time.LocalDate;
 
  
@@ -22,7 +22,8 @@ public class Alumno {
         this.fechaNacimiento = fechaNacimiento;
         this.estado = estado;
     }
-
+    
+    
     
     
     public Alumno() {

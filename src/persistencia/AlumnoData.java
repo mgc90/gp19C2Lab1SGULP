@@ -80,8 +80,9 @@ public class AlumnoData {
             ps.setInt(1, a.getIdAlumno());
             ps.executeUpdate();
             
+            System.out.println("Eliminado con éxito!");
             ps.close();
-            System.out.println("Actualizado con éxito!");
+            
             
         }catch(SQLException e){
             System.out.println("Error al eliminar datos" + e.getMessage());
@@ -89,20 +90,19 @@ public class AlumnoData {
     }
     
     public void bajaAlumno(Alumno a){
-        String query = "UPDATE alumno SET estado=? WHERE id_alumno=?"; 
+        String query = "UPDATE alumno SET estado= 0 WHERE id_alumno=?"; 
         
         try{
             PreparedStatement ps = con.prepareStatement(query);
            
-            ps.setBoolean(1, false);
-            ps.setInt(2, a.getIdAlumno());
+            ps.setInt(1, a.getIdAlumno());
             ps.executeUpdate();
             
             ps.close();
             System.out.println("Alumno dado de baja con éxito!");
             
         }catch(SQLException e){
-            System.out.println("Error al actualizar datos" + e.getMessage());
+            System.out.println("Error al dar de baja" + e.getMessage());
         }
     }
     
@@ -118,6 +118,7 @@ public class AlumnoData {
             while(rs.next()){
                 a = new Alumno();
                 a.setIdAlumno(rs.getInt("id_alumno"));
+                a.setDni(rs.getInt("dni"));
                 a.setNombre(rs.getString("nombre"));
                 a.setApellido(rs.getString("apellido"));
                 a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());

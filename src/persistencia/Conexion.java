@@ -19,6 +19,10 @@ public class Conexion {
         this.usuario = usuario;
         this.password = password;
     }
+
+    public static Connection getConexion() {
+        return conexion;
+    }
     
     
     public Connection buscarConexion(){
