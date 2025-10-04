@@ -1,6 +1,10 @@
 
 package modelo;
 
+/**
+ *
+ * @author Grupo 19 (Matias Correa, Valeria Muñoz, Evelyn Cetera)
+ */
 
 public class Inscripcion {
     private int idInscripto;

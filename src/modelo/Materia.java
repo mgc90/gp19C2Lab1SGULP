@@ -1,6 +1,10 @@
 
 package modelo;
 
+/**
+ *
+ * @author Grupo 19 (Matias Correa, Valeria Muñoz, Evelyn Cetera)
+ */
 
 public class Materia {
     private int idMateria;
@@ -8,12 +12,23 @@ public class Materia {
     private int anio;
     private boolean estado;
 
-    public Materia(int idMateria, String nombre, int anio, boolean estado) {
+    public Materia() {
+    }
+    
+    public Materia(String nombre, int anio, boolean estado){//SIN ID
+        this.nombre = nombre;
+        this.anio = anio;
+        this.estado = estado;
+    }
+
+    public Materia(int idMateria, String nombre, int anio, boolean estado) {//CON ID 
         this.idMateria = idMateria;
         this.nombre = nombre;
         this.anio = anio;
         this.estado = estado;
     }
+    
+    
 
     public int getIdMateria() {
         return idMateria;
@@ -49,7 +64,7 @@ public class Materia {
 
     @Override
     public String toString() {
-        return "Materia{" + "idMateria=" + idMateria + ", nombre=" + nombre + ", anio=" + anio + ", estado=" + estado + '}';
+        return "Materia[ID: " + idMateria + " - "+ nombre + " - " + estado + ']';
     }
     
     

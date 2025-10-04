@@ -10,7 +10,7 @@ import persistencia.Conexion;
 
 /**
  *
- * @author Cetera Evelyn
+ * @author Grupo 19 (Matias Correa, Valeria Muñoz, Evelyn Cetera)
  */
 public class MenuPrincipalView extends javax.swing.JFrame {
 

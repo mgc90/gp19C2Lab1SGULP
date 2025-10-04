@@ -1,6 +1,9 @@
 package persistencia;
 
-// @author Matías Correa, Grupo 19, Comisión 2;
+/**
+ *
+ * @author Grupo 19 (Matias Correa, Valeria Muñoz, Evelyn Cetera)
+ */
 
 import java.sql.Connection;
 import java.sql.Date;

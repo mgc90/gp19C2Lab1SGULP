@@ -1,7 +1,9 @@
 package modelo;
 
-// @author Matías Correa, Grupo 19, Comisión 2;
-
+/**
+ *
+ * @author Grupo 19 (Matias Correa, Valeria Muñoz, Evelyn Cetera)
+ */
 
 import java.time.LocalDate;
 

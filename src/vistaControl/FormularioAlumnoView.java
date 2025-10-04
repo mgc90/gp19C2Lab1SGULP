@@ -10,8 +10,9 @@ import persistencia.AlumnoData;
 
 /**
  *
- * @author Cetera Evelyn, grupo 19(Valeria Muños - Matias Correa)
+ * @author Grupo 19 (Matias Correa, Valeria Muñoz, Evelyn Cetera)
  */
+
 public class FormularioAlumnoView extends javax.swing.JInternalFrame {
 
     private AlumnoData alumData;

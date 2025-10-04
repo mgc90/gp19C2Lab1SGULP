@@ -12,7 +12,7 @@ import persistencia.AlumnoData;
 
 /**
  *
- * @author Cetera Evelyn
+ * @author Grupo 19 (Matias Correa, Valeria Muñoz, Evelyn Cetera)
  */
 public class ListaAlumnosView extends javax.swing.JInternalFrame {
 
