@@ -15,20 +15,13 @@ public class Materia {
     public Materia() {
     }
     
-    public Materia(String nombre, int anio, boolean estado){//SIN ID
+    public Materia(String nombre, int anio, boolean estado){
+        this.idMateria = -1;
         this.nombre = nombre;
         this.anio = anio;
         this.estado = estado;
     }
 
-    public Materia(int idMateria, String nombre, int anio, boolean estado) {//CON ID 
-        this.idMateria = idMateria;
-        this.nombre = nombre;
-        this.anio = anio;
-        this.estado = estado;
-    }
-    
-    
 
     public int getIdMateria() {
         return idMateria;

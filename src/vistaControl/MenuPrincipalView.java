@@ -7,6 +7,7 @@ package vistaControl;
 
 import persistencia.AlumnoData;
 import persistencia.Conexion;
+import persistencia.MateriaData;
 
 /**
  *
@@ -16,6 +17,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
 
     private Conexion conexion;
     private AlumnoData alumnoData;
+    private MateriaData materiaData;
     
     public MenuPrincipalView() {
         initComponents();
@@ -40,6 +42,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         jMIFormAlumnos = new javax.swing.JMenuItem();
         jmiListaAlumnos = new javax.swing.JMenuItem();
         jMenuMateria = new javax.swing.JMenu();
+        jmiFormularioMateria = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,6 +81,15 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         jMenuBar1.add(jMenuAlumnos);
 
         jMenuMateria.setText("Materia");
+        jMenuMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuMateriaActionPerformed(evt);
+            }
+        });
+
+        jmiFormularioMateria.setText("Agregar Materia");
+        jMenuMateria.add(jmiFormularioMateria);
+
         jMenuBar1.add(jMenuMateria);
 
         setJMenuBar(jMenuBar1);
@@ -123,6 +135,16 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmiListaAlumnosActionPerformed
 
+    private void jMenuMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuMateriaActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        FormularioMateriaView fmv = new FormularioMateriaView(materiaData);
+        Escritorio.add(fmv);
+        fmv.setVisible(true);
+        fmv.moveToFront();
+    }//GEN-LAST:event_jMenuMateriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -165,6 +187,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuInscripciones;
     private javax.swing.JMenu jMenuMateria;
+    private javax.swing.JMenuItem jmiFormularioMateria;
     private javax.swing.JMenuItem jmiListaAlumnos;
     // End of variables declaration//GEN-END:variables
 }

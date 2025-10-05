@@ -38,7 +38,7 @@ public class prueba {
             Materia m2 = new Materia("Programación web I", 2023, true);
             
             
-            md.agregarMateria(m1);
+            //md.agregarMateria(m1);
             //md.agregarMateria(m2);
             
             

@@ -108,6 +108,22 @@ public class AlumnoData {
             System.out.println("Error al dar de baja" + e.getMessage());
         }
     }
+    public void altaAlumno(Alumno a){
+        String query = "UPDATE alumno SET estado = 1 WHERE id_alumno=?"; 
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(query);
+           
+            ps.setInt(1, a.getIdAlumno());
+            ps.executeUpdate();
+            
+            ps.close();
+            System.out.println("Alumno dado de alta con éxito!");
+            
+        }catch(SQLException e){
+            System.out.println("Error al dar de alta" + e.getMessage());
+        }
+    }
     
     public Alumno buscarAlumno(int id){
         Alumno a = null;
