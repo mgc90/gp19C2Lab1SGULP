@@ -24,6 +24,12 @@ public class MateriaData {
     }
     
     public void agregarMateria(Materia m){
+        if(existeMateria(m.getNombre())){//verificamos que la materia no existe antes de guardarla
+            JOptionPane.showMessageDialog(null, "La materia ya existe");
+            
+            return;
+        }
+        
         String query = "INSERT INTO materia(nombre, anio, estado) VALUES(?, ?, ?)";
         
         try{
@@ -41,8 +47,7 @@ public class MateriaData {
                 JOptionPane.showMessageDialog(null,"No se pudo obtener ID de la materia");
                 //System.out.println("No se pudo obtener ID de la materia");
             ps.close();
-            JOptionPane.showMessageDialog(null,"Materia guardada correctamente");
-            //System.out.println("Materia guardada correctamente");
+            System.out.println("Materia guardada correctamente");
             
         }catch(SQLException ex) {//esa excepcion sirve para cuando no se puede hacer nada referido a codigo SQL
             JOptionPane.showMessageDialog(null,"Error al guardar datos" + ex.getMessage());
@@ -50,29 +55,28 @@ public class MateriaData {
         }
     }
     
-    public Materia buscarMateria(int id){
+    public Materia buscarMateria(int id) {
         Materia m = null;
         String sql = "SELECT * FROM materia WHERE id_materia = ?";
-        
+
         PreparedStatement ps;
-            try{
-                ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    m = new Materia();
-                    m.setIdMateria(rs.getInt("id_materia"));
-                    m.setNombre(rs.getString("nombre"));
-                    m.setAnio(rs.getInt("anio"));
-                    m.setEstado(rs.getBoolean("estado"));
-                }
-                System.out.println("Materia: " + m.toString());//Solo para mostrarlo por consola
-                ps.close();
-                rs.close();
-            }catch(SQLException ex){
-                JOptionPane.showMessageDialog(null,"Materia no encontrada" + ex.getMessage());
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                m = new Materia();
+                m.setIdMateria(rs.getInt("id_materia"));
+                m.setNombre(rs.getString("nombre"));
+                m.setAnio(rs.getInt("anio"));
+                m.setEstado(rs.getBoolean("estado"));
             }
-         return m;
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar materia: " + ex.getMessage());
+        }
+        return m;
     }
     
     public void actualizarMateria(Materia mat){
@@ -113,45 +117,29 @@ public class MateriaData {
         }
     }
     
-    public void bajaMateria(int id){
-        String query = "UPDATE materia SET estado = 0 WHERE id_materia=?";
+
+    //Unifiqué los metodos alta y baja 
+    public void actualizarEstadoMat(int id, boolean estado){
+        String query = "UPDATE materia SET estado = ? WHERE id_materia = ?";
         
         try{
-            PreparedStatement ps = con.prepareStatement(query); 
+            PreparedStatement ps = con.prepareStatement(query);
             
-            ps.setInt(1, id);
+            ps.setBoolean(1, estado);
+            ps.setInt(2, id);
             ps.executeUpdate();
             
             ps.close();
-            JOptionPane.showMessageDialog(null, "Baja realizada correctamente");
+            JOptionPane.showMessageDialog(null, "Estado actualizado con éxito");
             
-        }catch(SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al dar de baja" +  ex.getMessage());
-             
-        }
-    
-    }
-    public void altaMateria(int id){
-        String query = "UPDATE materia SET estado = 1 WHERE id_materia=?";
-        
-        try{
-            PreparedStatement ps = con.prepareStatement(query); 
-            
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            
-            ps.close();
-            JOptionPane.showMessageDialog(null, "Alta realizada correctamente");
-            
-        }catch(SQLException | NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Error al dar de alta" +  ex.getMessage());
-             
+        }catch(SQLException | NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Error al cambiar estado: " + ex.getMessage());
         }
     
     }
     
 
-public List<Materia> listarMateria(){
+    public List<Materia> listarMateria(){
         Materia m = null;
         List<Materia> listaMat = new ArrayList<>();
         String query = "SELECT * FROM materia";
@@ -171,7 +159,7 @@ public List<Materia> listarMateria(){
             }
             ps.close();
             rs.close();
-            JOptionPane.showMessageDialog(null, "Listado de materias recuperado con éxito!");
+            //JOptionPane.showMessageDialog(null, "Listado de materias recuperado con éxito!");
             
             
         }catch(SQLException e){
@@ -180,6 +168,31 @@ public List<Materia> listarMateria(){
         }
         return listaMat;
     }
+    
+    //EXTRA
+    public boolean existeMateria(String nombre){
+        String query = "SELECT * FROM materia WHERE nombre = ?";
+        boolean existe = false;
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                existe = true;
+            }
+            ps.close();
+            rs.close();
+            
+        }catch(SQLException ex){
+        
+            JOptionPane.showMessageDialog(null, "Error al verificar materia: " + ex.getMessage());
+                    
+        }
+        return existe;
+    } 
+
 }
     
     

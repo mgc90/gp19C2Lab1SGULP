@@ -21,6 +21,55 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         limpiarCampos();
         deshabilitarBotones();
     }
+        private void limpiarCampos() {
+        //vaciamos campos
+        jTextFieldID.setText("");
+        jTextFieldDNI.setText("");
+        jTextFieldNombre.setText("");
+        jTextFieldApellido.setText("");
+        jDateChooserCalendario.setDate(null);
+        estados.clearSelection();
+    }
+
+    private void deshabilitarBotones() {
+        jButtonBuscar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonBorrar.setEnabled(false);
+        jButtonActualizar.setEnabled(false);
+        jButtonLimpiar.setEnabled(false);
+        jbAlta.setEnabled(false);
+        jbBaja.setEnabled(false);
+    }
+    private void habilitarBotones(){
+        jButtonBuscar.setEnabled(true);
+        jButtonGuardar.setEnabled(true);
+        jButtonBorrar.setEnabled(true);
+        jButtonActualizar.setEnabled(true);
+        jButtonLimpiar.setEnabled(true);
+        jbAlta.setEnabled(true);
+        jbBaja.setEnabled(true);
+    
+    }
+
+    private void validarLetras(char c, KeyEvent e) {
+        if (Character.isDigit(c)) {
+            JOptionPane.showMessageDialog(this, "No se permiten números en este campo", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
+            e.consume();
+        }
+    }
+
+    private void validarNumeros(char c, KeyEvent e) {
+        if (Character.isLetter(c)) {
+            JOptionPane.showMessageDialog(this, "Campo de valores númericos", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
+            e.consume();
+        }
+    }
+    public void actualizarEstado(boolean estado){
+            jRadioButtonActivo.setSelected(estado);
+            jRadioButtonInactivo.setSelected(!estado);
+        
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -331,19 +380,21 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         int id = Integer.valueOf(jTextFieldID.getText());
         Alumno alum = alumData.buscarAlumno(id);
 
-        if (alum != null) {
+        if (alum == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró ningun alumno con el ID: " + id);
+            limpiarCampos();
+            deshabilitarBotones();
+            return;
+        }
             jTextFieldDNI.setText(alum.getDni() + "");
             jTextFieldNombre.setText(alum.getNombre());
             jTextFieldApellido.setText(alum.getApellido());
             jDateChooserCalendario.setDate(java.sql.Date.valueOf(alum.getFechaNacimiento()));
             actualizarEstado(alum.getEstado());
 
-            jButtonGuardar.setEnabled(false);
             habilitarBotones();
-            
-        } else {
-            JOptionPane.showMessageDialog(this, "No se encontró ningún alumno con ese ID" + id);
-        }
+            jButtonGuardar.setEnabled(false);
+        
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -352,7 +403,8 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         try {
             //valido campos vacios antes de guardar
             if (jTextFieldDNI.getText().isEmpty() || jTextFieldNombre.getText().isEmpty()
-                    || jTextFieldApellido.getText().isEmpty() || jDateChooserCalendario.getDate() == null) {
+                    || jTextFieldApellido.getText().isEmpty() || jDateChooserCalendario.getDate() == null
+                    || !jRadioButtonActivo.isSelected() && !jRadioButtonInactivo.isSelected()) {
                 JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios" + JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -364,12 +416,14 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
 
             LocalDate fechaNac = jDateChooserCalendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            Alumno alum = new Alumno(dni, nombre, apellido, fechaNac, estado);
+            Alumno alum = new Alumno(dni,apellido, nombre, fechaNac, estado);
             alumData.guardarAlumno(alum);
 
             jTextFieldID.setText(alum.getIdAlumno() + "");
             JOptionPane.showMessageDialog(this, "Alumno guardado correctamente!");
             limpiarCampos();
+            jButtonLimpiar.setEnabled(true);
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El campo DNI debe ser de valor númerico" + e.getMessage());
         }
@@ -379,15 +433,22 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
         // TODO add your handling code here:                
         
-
         //---------REVISAR----------------
         int id = Integer.valueOf(jTextFieldID.getText());
         int dni = Integer.valueOf(jTextFieldDNI.getText());
-        String nombre = jTextFieldNombre.getText();
         String apellido = jTextFieldApellido.getText();
-        boolean estado = jRadioButtonActivo.isSelected();
+        String nombre = jTextFieldNombre.getText();
 
         LocalDate fechaNac = jDateChooserCalendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        boolean estado;
+        if(jRadioButtonActivo.isSelected()){
+            estado = true;
+        }else if(jRadioButtonInactivo.isSelected()){
+            estado = false;
+        } else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un estado.");
+            return;
+        }
         Alumno alum = new Alumno(dni, nombre, apellido, fechaNac, estado);
         alum.setIdAlumno(id);
 
@@ -433,7 +494,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         char dni = evt.getKeyChar();
 
         validarNumeros(dni, evt);
-        jTextFieldDNI.requestFocus();
+
 
         if (jTextFieldDNI.getText().length() >= 10) {
             JOptionPane.showMessageDialog(this, "10 digitos permitidos", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -446,95 +507,52 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         // TODO add your handling code here: ----------OK
         char c = evt.getKeyChar();
         validarLetras(c, evt);
-        jTextFieldNombre.requestFocus();
     }//GEN-LAST:event_jTextFieldNombreKeyTyped
 
     private void jTextFieldApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidoKeyTyped
         // TODO add your handling code here: ------------OK
         char c = evt.getKeyChar();
         validarLetras(c, evt);
-        jTextFieldNombre.requestFocus();
     }//GEN-LAST:event_jTextFieldApellidoKeyTyped
 
     private void jbBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBajaMouseClicked
         // TODO add your handling code here: ---------------OK
-        int id = Integer.valueOf(jTextFieldID.getText());//traigo el id
-        Alumno a = alumData.buscarAlumno(id);//lo asigno a una variable de tipo Alumno usando el metodo de buscar alumno que recibe un id
+        int id = 0;
+        
+        if (!jTextFieldID.getText().isEmpty()) {
+            id = Integer.valueOf(jTextFieldID.getText());
+        }
 
-        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea darse de baja?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea dar de baja alumno?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (opcion == JOptionPane.YES_OPTION) {
-            alumData.bajaAlumno(a);//y se lo paso por parametro al metodo de baja!    
+            alumData.actualizarEstadoAlumno(id, false);
+            Alumno a = alumData.buscarAlumno(id);
+            actualizarEstado(a.getEstado());
         } else {
             JOptionPane.showMessageDialog(this, "Confirmación cancelada");
         }
-        alumData.buscarAlumno(id);
-        actualizarEstado(a.getEstado());
     }//GEN-LAST:event_jbBajaMouseClicked
 
     private void jbAltaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAltaMouseClicked
         // TODO add your handling code here: -----------------OK
-        int id = Integer.valueOf(jTextFieldID.getText());
-        Alumno a = alumData.buscarAlumno(id);
-
-        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea darse de alta?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int id = 0;
+        if(!jTextFieldID.getText().isEmpty()){
+            id = Integer.valueOf(jTextFieldID.getText());
+        }
+         
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea dar de alta al alumno?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (opcion == JOptionPane.YES_OPTION) {
-            alumData.altaAlumno(a);
+            alumData.actualizarEstadoAlumno(id, true);
+            Alumno a = alumData.buscarAlumno(id);
+            actualizarEstado(a.getEstado());
+            
         } else {
             JOptionPane.showMessageDialog(this, "Confirmación cancelada");
         }
-        alumData.buscarAlumno(id);
-        actualizarEstado(a.getEstado());
-    }//GEN-LAST:event_jbAltaMouseClicked
-    private void limpiarCampos() {
-        //vaciamos campos
-        jTextFieldID.setText("");
-        jTextFieldDNI.setText("");
-        jTextFieldNombre.setText("");
-        jTextFieldApellido.setText("");
-        jDateChooserCalendario.setDate(null);
-        estados.clearSelection();
-    }
-
-    private void deshabilitarBotones() {
-        jButtonBuscar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonBorrar.setEnabled(false);
-        jButtonActualizar.setEnabled(false);
-        jButtonLimpiar.setEnabled(false);
-        jbAlta.setEnabled(false);
-        jbBaja.setEnabled(false);
-    }
-    private void habilitarBotones(){
-        jButtonBuscar.setEnabled(true);
-        jButtonGuardar.setEnabled(true);
-        jButtonBorrar.setEnabled(true);
-        jButtonActualizar.setEnabled(true);
-        jButtonLimpiar.setEnabled(true);
-        jbAlta.setEnabled(true);
-        jbBaja.setEnabled(true);
-    
-    }
-
-    private void validarLetras(char c, KeyEvent e) {
-        if (Character.isDigit(c)) {
-            JOptionPane.showMessageDialog(this, "No se permiten números en este campo", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
-            e.consume();
-        }
-    }
-
-    private void validarNumeros(char c, KeyEvent e) {
-        if (Character.isLetter(c)) {
-            JOptionPane.showMessageDialog(this, "Campo de valores númericos", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
-            e.consume();
-        }
-    }
-    public void actualizarEstado(boolean estado){
-            jRadioButtonActivo.setSelected(estado);
-            jRadioButtonInactivo.setSelected(!estado);
         
-    }
+    }//GEN-LAST:event_jbAltaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

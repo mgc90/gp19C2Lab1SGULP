@@ -24,6 +24,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         
         conexion = new Conexion("jdbc:mariadb://localhost/GP19_bd_universidad", "root", "");
         alumnoData = new AlumnoData(conexion);
+        materiaData = new MateriaData(conexion);
     }
 
     /**
@@ -81,13 +82,13 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         jMenuBar1.add(jMenuAlumnos);
 
         jMenuMateria.setText("Materia");
-        jMenuMateria.addActionListener(new java.awt.event.ActionListener() {
+
+        jmiFormularioMateria.setText("Formulario Materia");
+        jmiFormularioMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuMateriaActionPerformed(evt);
+                jmiFormularioMateriaActionPerformed(evt);
             }
         });
-
-        jmiFormularioMateria.setText("Agregar Materia");
         jMenuMateria.add(jmiFormularioMateria);
 
         jMenuBar1.add(jMenuMateria);
@@ -135,7 +136,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmiListaAlumnosActionPerformed
 
-    private void jMenuMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuMateriaActionPerformed
+    private void jmiFormularioMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFormularioMateriaActionPerformed
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
@@ -143,7 +144,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         Escritorio.add(fmv);
         fmv.setVisible(true);
         fmv.moveToFront();
-    }//GEN-LAST:event_jMenuMateriaActionPerformed
+    }//GEN-LAST:event_jmiFormularioMateriaActionPerformed
 
     /**
      * @param args the command line arguments

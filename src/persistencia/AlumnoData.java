@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import modelo.Alumno;
 
  
@@ -92,37 +93,24 @@ public class AlumnoData {
         }
     }
     
-    public void bajaAlumno(Alumno a){
-        String query = "UPDATE alumno SET estado= 0 WHERE id_alumno=?"; 
+    //Unificamos metodos baja/alta de estado
+    public void actualizarEstadoAlumno(int id, boolean estado){
+        String query = "UPDATE alumno SET estado = ? WHERE id_alumno = ?";
         
         try{
             PreparedStatement ps = con.prepareStatement(query);
-           
-            ps.setInt(1, a.getIdAlumno());
+            
+            ps.setBoolean(1, estado);
+            ps.setInt(2, id);
             ps.executeUpdate();
             
             ps.close();
-            System.out.println("Alumno dado de baja con éxito!");
+            JOptionPane.showMessageDialog(null, "Estado actualizado con éxito");
             
-        }catch(SQLException e){
-            System.out.println("Error al dar de baja" + e.getMessage());
+        }catch(SQLException | NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Error al cambiar estado: " + ex.getMessage());
         }
-    }
-    public void altaAlumno(Alumno a){
-        String query = "UPDATE alumno SET estado = 1 WHERE id_alumno=?"; 
-        
-        try{
-            PreparedStatement ps = con.prepareStatement(query);
-           
-            ps.setInt(1, a.getIdAlumno());
-            ps.executeUpdate();
-            
-            ps.close();
-            System.out.println("Alumno dado de alta con éxito!");
-            
-        }catch(SQLException e){
-            System.out.println("Error al dar de alta" + e.getMessage());
-        }
+    
     }
     
     public Alumno buscarAlumno(int id){
