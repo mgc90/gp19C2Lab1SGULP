@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistaControl;
 
 import java.util.List;
@@ -36,12 +31,12 @@ public class ListaAlumnosView extends javax.swing.JInternalFrame {
         
         for(Alumno aux : lista){
             modelo.addRow(new Object[]{ 
-                          aux.getIdAlumno(),
-                          aux.getDni(),
-                          aux.getApellido(),
-                          aux.getNombre(),
-                          aux.getFechaNacimiento(),
-                          aux.getEstado() 
+                aux.getIdAlumno(),
+                aux.getDni(),
+                aux.getApellido(),
+                aux.getNombre(),
+                aux.getFechaNacimiento(),
+                aux.getEstado() 
             });
         }
         jtAlumnos.setModel(modelo);
@@ -65,6 +60,7 @@ public class ListaAlumnosView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Lista Alumnos");
 
         jLabel1.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel1.setText("Filtrar por ID:");
@@ -90,6 +86,7 @@ public class ListaAlumnosView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtAlumnos.setEnabled(false);
         jScrollPane1.setViewportView(jtAlumnos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

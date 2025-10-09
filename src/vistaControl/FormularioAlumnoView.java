@@ -12,6 +12,8 @@ import persistencia.AlumnoData;
  * @author Grupo 19 (Matias Correa, Valeria Muñoz, Evelyn Cetera)
  */
 public class FormularioAlumnoView extends javax.swing.JInternalFrame {
+    private boolean actualizando = false;
+    private Alumno alum;
 
     private AlumnoData alumData;
 
@@ -37,17 +39,14 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jButtonBorrar.setEnabled(false);
         jButtonActualizar.setEnabled(false);
         jButtonLimpiar.setEnabled(false);
-        jbAlta.setEnabled(false);
-        jbBaja.setEnabled(false);
+
     }
     private void habilitarBotones(){
         jButtonBuscar.setEnabled(true);
         jButtonGuardar.setEnabled(true);
         jButtonBorrar.setEnabled(true);
-        jButtonActualizar.setEnabled(true);
+        //jButtonActualizar.setEnabled(true);
         jButtonLimpiar.setEnabled(true);
-        jbAlta.setEnabled(true);
-        jbBaja.setEnabled(true);
     
     }
 
@@ -101,10 +100,6 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jButtonBuscar = new javax.swing.JButton();
         jTextFieldID = new javax.swing.JTextField();
         jLabelID = new javax.swing.JLabel();
-        jpBajaAlta = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jbBaja = new javax.swing.JButton();
-        jbAlta = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -119,6 +114,9 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jLabel2.setText("Nombre:");
 
         jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldNombreKeyTyped(evt);
             }
@@ -144,6 +142,9 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel5.setText("Fecha de Nacimiento:");
+
+        jDateChooserCalendario.setMaxSelectableDate(new java.util.Date(1199156512000L));
+        jDateChooserCalendario.setMinSelectableDate(new java.util.Date(-1735670480000L));
 
         jLabel6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel6.setText("Estado:");
@@ -267,54 +268,6 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jLabelID.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabelID.setText("ID: ");
 
-        jpBajaAlta.setEnabled(false);
-
-        jLabel7.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel7.setText("¿Dar de Baja/Alta?");
-
-        jbBaja.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jbBaja.setText("BAJA");
-        jbBaja.setEnabled(false);
-        jbBaja.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbBajaMouseClicked(evt);
-            }
-        });
-
-        jbAlta.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jbAlta.setText("ALTA");
-        jbAlta.setEnabled(false);
-        jbAlta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbAltaMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jpBajaAltaLayout = new javax.swing.GroupLayout(jpBajaAlta);
-        jpBajaAlta.setLayout(jpBajaAltaLayout);
-        jpBajaAltaLayout.setHorizontalGroup(
-            jpBajaAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpBajaAltaLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(jpBajaAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(jpBajaAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jbBaja, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbAlta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-        jpBajaAltaLayout.setVerticalGroup(
-            jpBajaAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpBajaAltaLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel7)
-                .addGap(30, 30, 30)
-                .addComponent(jbBaja)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(jbAlta)
-                .addGap(28, 28, 28))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -345,9 +298,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(jpBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,9 +311,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
                     .addComponent(jLabelID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jpFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,8 +327,8 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here: --- OK 
         int id = Integer.valueOf(jTextFieldID.getText());
-        Alumno alum = alumData.buscarAlumno(id);
-
+        alum = alumData.buscarAlumno(id);
+        
         if (alum == null) {
             JOptionPane.showMessageDialog(this, "No se encontró ningun alumno con el ID: " + id);
             limpiarCampos();
@@ -391,8 +340,8 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
             jTextFieldApellido.setText(alum.getApellido());
             jDateChooserCalendario.setDate(java.sql.Date.valueOf(alum.getFechaNacimiento()));
             actualizarEstado(alum.getEstado());
-
-            habilitarBotones();
+            actualizando = true;
+             habilitarBotones();
             jButtonGuardar.setEnabled(false);
         
     }//GEN-LAST:event_jButtonBuscarActionPerformed
@@ -405,7 +354,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
             if (jTextFieldDNI.getText().isEmpty() || jTextFieldNombre.getText().isEmpty()
                     || jTextFieldApellido.getText().isEmpty() || jDateChooserCalendario.getDate() == null
                     || !jRadioButtonActivo.isSelected() && !jRadioButtonInactivo.isSelected()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios" + JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "WARNING", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
@@ -433,6 +382,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
         // TODO add your handling code here:                
         
+        
         //---------REVISAR----------------
         int id = Integer.valueOf(jTextFieldID.getText());
         int dni = Integer.valueOf(jTextFieldDNI.getText());
@@ -441,6 +391,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
 
         LocalDate fechaNac = jDateChooserCalendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         boolean estado;
+        
         if(jRadioButtonActivo.isSelected()){
             estado = true;
         }else if(jRadioButtonInactivo.isSelected()){
@@ -454,6 +405,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
 
         alumData.actualizarAlumno(alum);
         limpiarCampos();
+        
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
@@ -501,12 +453,13 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
             evt.consume();
             jTextFieldID.requestFocus();
         }
+        
     }//GEN-LAST:event_jTextFieldDNIKeyTyped
 
     private void jTextFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyTyped
         // TODO add your handling code here: ----------OK
-        char c = evt.getKeyChar();
-        validarLetras(c, evt);
+        
+        
     }//GEN-LAST:event_jTextFieldNombreKeyTyped
 
     private void jTextFieldApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidoKeyTyped
@@ -515,44 +468,18 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         validarLetras(c, evt);
     }//GEN-LAST:event_jTextFieldApellidoKeyTyped
 
-    private void jbBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBajaMouseClicked
-        // TODO add your handling code here: ---------------OK
-        int id = 0;
+    private void jTextFieldNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyReleased
+        // TODO add your handling code here:
         
-        if (!jTextFieldID.getText().isEmpty()) {
-            id = Integer.valueOf(jTextFieldID.getText());
+        char c = evt.getKeyChar();
+        validarLetras(c, evt);
+        if(actualizando && alum.getNombre().equals(jTextFieldNombre.getText())) {
+            jButtonActualizar.setEnabled(false);
         }
-
-        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea dar de baja alumno?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if (opcion == JOptionPane.YES_OPTION) {
-            alumData.actualizarEstadoAlumno(id, false);
-            Alumno a = alumData.buscarAlumno(id);
-            actualizarEstado(a.getEstado());
-        } else {
-            JOptionPane.showMessageDialog(this, "Confirmación cancelada");
-        }
-    }//GEN-LAST:event_jbBajaMouseClicked
-
-    private void jbAltaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAltaMouseClicked
-        // TODO add your handling code here: -----------------OK
-        int id = 0;
-        if(!jTextFieldID.getText().isEmpty()){
-            id = Integer.valueOf(jTextFieldID.getText());
-        }
-         
-        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea dar de alta al alumno?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if (opcion == JOptionPane.YES_OPTION) {
-            alumData.actualizarEstadoAlumno(id, true);
-            Alumno a = alumData.buscarAlumno(id);
-            actualizarEstado(a.getEstado());
-            
-        } else {
-            JOptionPane.showMessageDialog(this, "Confirmación cancelada");
-        }
-        
-    }//GEN-LAST:event_jbAltaMouseClicked
+        if(actualizando && !alum.getNombre().equals(jTextFieldNombre.getText())){
+            jButtonActualizar.setEnabled(true);
+        } 
+    }//GEN-LAST:event_jTextFieldNombreKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -569,7 +496,6 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelID;
     private javax.swing.JRadioButton jRadioButtonActivo;
     private javax.swing.JRadioButton jRadioButtonInactivo;
@@ -577,9 +503,6 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldDNI;
     private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldNombre;
-    private javax.swing.JButton jbAlta;
-    private javax.swing.JButton jbBaja;
-    private javax.swing.JPanel jpBajaAlta;
     private javax.swing.JPanel jpFormulario;
     // End of variables declaration//GEN-END:variables
 
