@@ -39,8 +39,7 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jbBorrar.setEnabled(false);
         jbActualizar.setEnabled(false);
         jbLimpiar.setEnabled(false);
-        jbAlta.setEnabled(false);
-        jbBaja.setEnabled(false);
+        
     }
     private void habilitarBotones(){
         jbBuscar.setEnabled(true);
@@ -48,8 +47,7 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jbBorrar.setEnabled(true);
         jbActualizar.setEnabled(true);
         jbLimpiar.setEnabled(true);
-        jbAlta.setEnabled(true);
-        jbBaja.setEnabled(true);
+        
     
     }
     private void validarLetras(char c, KeyEvent e) {
@@ -92,10 +90,6 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jrbActivo = new javax.swing.JRadioButton();
         jrbInactivo = new javax.swing.JRadioButton();
-        jpBajaAlta = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jbAlta = new javax.swing.JButton();
-        jbBaja = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
         jbActualizar = new javax.swing.JButton();
         jbBorrar = new javax.swing.JButton();
@@ -194,54 +188,6 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
-        jLabel6.setText("¿Dar de Baja/Alta?");
-
-        jbAlta.setText("ALTA");
-        jbAlta.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jbAlta.setEnabled(false);
-        jbAlta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbAltaMouseClicked(evt);
-            }
-        });
-
-        jbBaja.setText("BAJA");
-        jbBaja.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jbBaja.setEnabled(false);
-        jbBaja.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbBajaMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jpBajaAltaLayout = new javax.swing.GroupLayout(jpBajaAlta);
-        jpBajaAlta.setLayout(jpBajaAltaLayout);
-        jpBajaAltaLayout.setHorizontalGroup(
-            jpBajaAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpBajaAltaLayout.createSequentialGroup()
-                .addGroup(jpBajaAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpBajaAltaLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel6))
-                    .addGroup(jpBajaAltaLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(jpBajaAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jbAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbBaja, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))))
-                .addContainerGap(51, Short.MAX_VALUE))
-        );
-        jpBajaAltaLayout.setVerticalGroup(
-            jpBajaAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpBajaAltaLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel6)
-                .addGap(33, 33, 33)
-                .addComponent(jbAlta)
-                .addGap(33, 33, 33)
-                .addComponent(jbBaja)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
         jbGuardar.setText("Guardar");
         jbGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -293,13 +239,8 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
                         .addComponent(jbActualizar)
                         .addGap(48, 48, 48)
                         .addComponent(jbBorrar)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jpBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbLimpiar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                .addComponent(jbLimpiar)
                 .addContainerGap(18, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(173, 173, 173)
@@ -316,9 +257,7 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
                     .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanelFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGuardar)
@@ -330,44 +269,6 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jbAltaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAltaMouseClicked
-        // TODO add your handling code here:
-        int id = 0;
-        if (!jtfID.getText().isEmpty()) {
-            id = Integer.valueOf(jtfID.getText());
-        }
-
-        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea dar de alta la materia?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if (opcion == JOptionPane.YES_OPTION) {
-            materiaData.actualizarEstadoMat(id, true);
-            Materia m = materiaData.buscarMateria(id);
-            actualizarEstado(m.isEstado());
-        } else {
-            JOptionPane.showMessageDialog(this, "Confirmación cancelada");
-        }      
-    }//GEN-LAST:event_jbAltaMouseClicked
-
-    private void jbBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBajaMouseClicked
-        // TODO add your handling code here:
-        int id = 0;
-        if (!jtfID.getText().isEmpty()) {
-            id = Integer.valueOf(jtfID.getText());
-        }
-
-        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea dar de baja la materia?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if (opcion == JOptionPane.YES_OPTION) {
-            materiaData.actualizarEstadoMat(id, false);
-            Materia m = materiaData.buscarMateria(id);
-            actualizarEstado(m.isEstado());
-        } else {
-            JOptionPane.showMessageDialog(this, "Confirmación cancelada");
-        }
-        
-        
-    }//GEN-LAST:event_jbBajaMouseClicked
 
     private void jtfIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfIDKeyTyped
         // TODO add your handling code here:
@@ -504,16 +405,12 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanelFormulario;
     private javax.swing.JButton jbActualizar;
-    private javax.swing.JButton jbAlta;
-    private javax.swing.JButton jbBaja;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbLimpiar;
-    private javax.swing.JPanel jpBajaAlta;
     private javax.swing.JRadioButton jrbActivo;
     private javax.swing.JRadioButton jrbInactivo;
     private javax.swing.JTextField jtfAnio;

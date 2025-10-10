@@ -8,6 +8,7 @@ package persistencia;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
  
 public class Conexion {
@@ -35,6 +36,8 @@ public class Conexion {
                 conexion = DriverManager.getConnection(url, usuario, password);
             }catch(SQLException | ClassNotFoundException e){
                 System.out.println("No se pudo cargar el driver " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "No se puedo establecer conexión"
+                        + "con la base de datos. Conexión inactiva o drivers faltantes.");
             }
         }
         return conexion; 

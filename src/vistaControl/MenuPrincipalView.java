@@ -41,7 +41,6 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         jMenuInscripciones = new javax.swing.JMenu();
         jMenuAlumnos = new javax.swing.JMenu();
         jMIFormAlumnos = new javax.swing.JMenuItem();
-        jmiListaAlumnos = new javax.swing.JMenuItem();
         jMenuMateria = new javax.swing.JMenu();
         jmiFormularioMateria = new javax.swing.JMenuItem();
 
@@ -70,14 +69,6 @@ public class MenuPrincipalView extends javax.swing.JFrame {
             }
         });
         jMenuAlumnos.add(jMIFormAlumnos);
-
-        jmiListaAlumnos.setText("Lista Alumnos");
-        jmiListaAlumnos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiListaAlumnosActionPerformed(evt);
-            }
-        });
-        jMenuAlumnos.add(jmiListaAlumnos);
 
         jMenuBar1.add(jMenuAlumnos);
 
@@ -117,18 +108,8 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         Escritorio.add(fav);
         fav.setVisible(true);
         fav.moveToFront();
-    }//GEN-LAST:event_jMIFormAlumnosActionPerformed
-
-    private void jmiListaAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListaAlumnosActionPerformed
-        // TODO add your handling code here:
-        Escritorio.removeAll();
-        Escritorio.repaint();
-        ListaAlumnosView lav = new ListaAlumnosView(alumnoData);
-        Escritorio.add(lav);
-        lav.setVisible(true);
-        lav.moveToFront();
         
-    }//GEN-LAST:event_jmiListaAlumnosActionPerformed
+    }//GEN-LAST:event_jMIFormAlumnosActionPerformed
 
     private void jmiFormularioMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFormularioMateriaActionPerformed
         // TODO add your handling code here:
@@ -183,6 +164,5 @@ public class MenuPrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuInscripciones;
     private javax.swing.JMenu jMenuMateria;
     private javax.swing.JMenuItem jmiFormularioMateria;
-    private javax.swing.JMenuItem jmiListaAlumnos;
     // End of variables declaration//GEN-END:variables
 }
