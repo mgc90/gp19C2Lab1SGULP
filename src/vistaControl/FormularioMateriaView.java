@@ -2,9 +2,9 @@
 package vistaControl;
 
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
+import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.Alumno;
+import javax.swing.table.DefaultTableModel;
 import modelo.Materia;
 import persistencia.MateriaData;
 import persistencia.AlumnoData;
@@ -17,14 +17,18 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
 
     private AlumnoData alumnoData;
     private MateriaData materiaData;
+    private Materia mat;
+    private DefaultTableModel modelo = new DefaultTableModel();
+    private boolean actualizando = false;
+    
     public FormularioMateriaView(MateriaData matData) {
         initComponents();
         this.materiaData = matData;
         limpiarCampos();
         deshabilitarBotones();
+        cargarTabla();
     }
-    public void limpiarCampos(){
-    //vaciamos campos
+    private void limpiarCampos(){
     jtfID.setText("");
     jtfNombre.setText("");
     jtfAnio.setText("");
@@ -45,29 +49,64 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jbBuscar.setEnabled(true);
         jbGuardar.setEnabled(true);
         jbBorrar.setEnabled(true);
-        jbActualizar.setEnabled(true);
+        //jbActualizar.setEnabled(true);
         jbLimpiar.setEnabled(true);
         
     
     }
     private void validarLetras(char c, KeyEvent e) {
         if (Character.isDigit(c)) {
-            JOptionPane.showMessageDialog(this, "No se permiten números en este campo", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
             e.consume();
+            //JOptionPane.showMessageDialog(this, "No se permiten números en este campo", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
+            
         }
     }
 
     private void validarNumeros(char c, KeyEvent e) {
         if (Character.isLetter(c)) {
-            JOptionPane.showMessageDialog(this, "Campo de valores númericos", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
             e.consume();
+            //JOptionPane.showMessageDialog(this, "Campo de valores númericos", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
+            
         }
     }
-    public void actualizarEstado(boolean estado){
+    private void actualizarEstado(boolean estado){
             jrbActivo.setSelected(estado);
             jrbInactivo.setSelected(!estado);
         
     }
+    private String conversorEstado(boolean b){
+        String a = "Activo";
+        String i = "Inactivo";
+        if(b == true){
+           return a; 
+        } else{
+            return i;
+        }
+    }
+    private void cargarTabla(){
+        modelo.setRowCount(0);
+        modelo.setColumnCount(0);
+        modelo.fireTableDataChanged();
+        
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Año");
+        modelo.addColumn("Estado");
+        
+        List<Materia> lista = materiaData.listarMateria();
+        
+        for(Materia aux : lista){
+            
+            modelo.addRow(new Object[]{ 
+                aux.getIdMateria(),
+                aux.getNombre(),
+                aux.getAnio(),
+                conversorEstado(aux.isEstado()) 
+            });
+        }
+        jtMaterias.setModel(modelo);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,14 +129,18 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jrbActivo = new javax.swing.JRadioButton();
         jrbInactivo = new javax.swing.JRadioButton();
+        jLabel7 = new javax.swing.JLabel();
         jbGuardar = new javax.swing.JButton();
         jbActualizar = new javax.swing.JButton();
         jbBorrar = new javax.swing.JButton();
         jbLimpiar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtMaterias = new javax.swing.JTable();
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("GESTIÓN DE MATERIAS");
-        jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jLabel1.setEnabled(false);
         jLabel1.setFocusable(false);
 
@@ -110,9 +153,10 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
             }
         });
 
-        jbBuscar.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jbBuscar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jbBuscar.setText("Buscar");
-        jbBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jbBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBuscarActionPerformed(evt);
@@ -143,10 +187,25 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         Estados.add(jrbActivo);
         jrbActivo.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jrbActivo.setText("Activo");
+        jrbActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbActivoActionPerformed(evt);
+            }
+        });
 
         Estados.add(jrbInactivo);
         jrbInactivo.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jrbInactivo.setText("Inactivo");
+        jrbInactivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbInactivoActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Lista Materias");
+        jLabel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jPanelFormularioLayout = new javax.swing.GroupLayout(jPanelFormulario);
         jPanelFormulario.setLayout(jPanelFormularioLayout);
@@ -168,6 +227,9 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jrbInactivo))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelFormularioLayout.createSequentialGroup()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelFormularioLayout.setVerticalGroup(
             jPanelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,10 +247,12 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(jrbActivo)
                     .addComponent(jrbInactivo))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(jLabel7))
         );
 
         jbGuardar.setText("Guardar");
+        jbGuardar.setEnabled(false);
         jbGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbGuardarMouseClicked(evt);
@@ -216,55 +280,83 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
             }
         });
 
+        jtMaterias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtMaterias.setEnabled(false);
+        jtMaterias.setFocusable(false);
+        jtMaterias.setRequestFocusEnabled(false);
+        jtMaterias.setRowSelectionAllowed(false);
+        jScrollPane1.setViewportView(jtMaterias);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbActualizar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanelFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(88, 88, 88)
-                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jbGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbActualizar)
-                        .addGap(48, 48, 48)
-                        .addComponent(jbBorrar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
-                .addComponent(jbLimpiar)
-                .addContainerGap(18, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(173, 173, 173)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanelFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(88, 88, 88)
+                                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jbLimpiar)
+                                    .addComponent(jbGuardar)
+                                    .addComponent(jbBorrar))))))
+                .addGap(31, 31, 31))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(64, 64, 64))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addComponent(jPanelFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbGuardar)
-                    .addComponent(jbActualizar)
-                    .addComponent(jbBorrar)
-                    .addComponent(jbLimpiar))
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbActualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbGuardar)
+                        .addGap(27, 27, 27)
+                        .addComponent(jbBorrar)
+                        .addGap(33, 33, 33)
+                        .addComponent(jbLimpiar)
+                        .addGap(20, 20, 20)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -279,31 +371,11 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jtfID.requestFocus();
 
         if (jtfID.getText().length() >= 5) {
-            JOptionPane.showMessageDialog(this, "5 digitos permitidos", "Warning", JOptionPane.WARNING_MESSAGE);
             evt.consume();
+            JOptionPane.showMessageDialog(this, "5 digitos permitidos", "Warning", JOptionPane.WARNING_MESSAGE); 
+            jtfID.requestFocus();
         }
     }//GEN-LAST:event_jtfIDKeyTyped
-
-    private void jtfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyTyped
-        // TODO add your handling code here:
-        jbGuardar.setEnabled(true);
-        char nombre = evt.getKeyChar();
-
-        validarLetras(nombre, evt);
-    }//GEN-LAST:event_jtfNombreKeyTyped
-
-    private void jtfAnioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAnioKeyTyped
-        // TODO add your handling code here:
-        char anio = evt.getKeyChar();
-
-        validarNumeros(anio, evt);//valida que solo se puedan ingresar numeros 
-        jtfAnio.requestFocus();
-
-        if (jtfAnio.getText().length() >= 4) {//con un limite de 4 digitos si quiere escribir más directamente no se lo permite y le muestra el msj.
-            JOptionPane.showMessageDialog(this, "4 digitos permitidos para 'año'", "Warning", JOptionPane.WARNING_MESSAGE);
-            evt.consume();
-        }
-    }//GEN-LAST:event_jtfAnioKeyTyped
 
     private void jbGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbGuardarMouseClicked
         // TODO add your handling code here:
@@ -315,6 +387,16 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+            if (jtfAnio.getText().length() > 1) {
+                JOptionPane.showMessageDialog(this, "El campo año permite 1 solo dígito");
+                jtfAnio.requestFocus();
+                return;
+            }
+            if (jtfNombre.getText().length() < 5) {
+                JOptionPane.showMessageDialog(this, "Nombre debe tener al menos 5 caracteres.");
+                jtfNombre.requestFocus();
+                return;
+            }
 
             String nombre = jtfNombre.getText();
             int anio = Integer.valueOf(jtfAnio.getText());
@@ -324,10 +406,12 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
             materiaData.agregarMateria(mat);
 
             jtfID.setText(mat.getIdMateria() + "");
-            
+
             JOptionPane.showMessageDialog(this, "Materia guardada correctamente!");
             limpiarCampos();
             jbLimpiar.setEnabled(true);
+            cargarTabla();
+            deshabilitarBotones();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El campo año debe ser de valor númerico" + e.getMessage());
         }
@@ -337,6 +421,7 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         limpiarCampos();
         deshabilitarBotones();
+        actualizando = false;
     }//GEN-LAST:event_jbLimpiarMouseClicked
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
@@ -347,56 +432,135 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         }
         
         int id = Integer.valueOf(jtfID.getText());
-        Materia m = materiaData.buscarMateria(id);
+        mat = materiaData.buscarMateria(id);
         
-        if (m == null) {//verificar que materia no sea null
+        if (mat == null) {//verificar que materia no sea null
             JOptionPane.showMessageDialog(this, "No se encontró ninguna materia con el ID: " + id);
             limpiarCampos();
             deshabilitarBotones();
             return;
         }
         
-            jtfNombre.setText(m.getNombre());
-            jtfAnio.setText(m.getAnio() + "");
-            actualizarEstado(m.isEstado());
-
+            jtfNombre.setText(mat.getNombre());
+            jtfAnio.setText(mat.getAnio() + "");
+            actualizarEstado(mat.isEstado());
+            
+            actualizando = true;
             habilitarBotones();
             jbGuardar.setEnabled(false);
-        
+            jbActualizar.setEnabled(true);
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseClicked
         // TODO add your handling code here:
+        
+        if (jtfAnio.getText().length() > 1) {
+            JOptionPane.showMessageDialog(this, "El campo año permite 1 solo dígito");
+            jtfAnio.requestFocus();
+            return;
+        }
+        if (jtfNombre.getText().length() < 5) {
+            JOptionPane.showMessageDialog(this, "Nombre debe tener al menos 5 caracteres.");
+            jtfNombre.requestFocus();
+            return;
+        }
         int id = Integer.valueOf(jtfID.getText());
         String nombre = jtfNombre.getText();
         int anio = Integer.valueOf(jtfAnio.getText());
-        boolean estado ; 
-        if(jrbActivo.isSelected()){
+        boolean estado;
+        if (jrbActivo.isSelected()) {
             estado = true;
-        }else if(jrbInactivo.isSelected()){
+        } else if (jrbInactivo.isSelected()) {
             estado = false;
-        } else{
+        } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un estado.");
             return;
         }
+        
+        Materia mat;
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea actualizar la materia seleccionada? S/N", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            mat = new Materia(nombre, anio, estado);
+            mat.setIdMateria(id);
 
-        Materia mat = new Materia(nombre,anio,estado);
-        mat.setIdMateria(id);
-
-        materiaData.actualizarMateria(mat);
-        limpiarCampos();
+            materiaData.actualizarMateria(mat);
+            limpiarCampos();
+            actualizando = false;
+            jbActualizar.setEnabled(false);
+            cargarTabla();
+            JOptionPane.showMessageDialog(this, "Actualizado Correctamente");
+            deshabilitarBotones();
+        }
     }//GEN-LAST:event_jbActualizarMouseClicked
 
     private void jbBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBorrarMouseClicked
         // TODO add your handling code here:
         int id = Integer.valueOf(jtfID.getText());
         Materia m = new Materia();
-        
         m.setIdMateria(id);
         
-        materiaData.borrarMateria(id);
-        limpiarCampos();
+        int opcion=JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia seleccionada? S/N", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            materiaData.borrarMateria(id);
+            limpiarCampos();
+            actualizando = false;
+            cargarTabla();
+            JOptionPane.showMessageDialog(this, "Materia eliminada correctamente");
+            deshabilitarBotones();
+        }
     }//GEN-LAST:event_jbBorrarMouseClicked
+
+    private void jrbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbActivoActionPerformed
+        // TODO add your handling code here:
+        jrbInactivo.setSelected(false);
+
+        if (actualizando && mat != null) {
+            if (mat.isEstado()) {
+                jbActualizar.setEnabled(false);
+            } else {
+                jbActualizar.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jrbActivoActionPerformed
+
+    private void jrbInactivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbInactivoActionPerformed
+        // TODO add your handling code here:
+        jrbActivo.setSelected(false);
+
+        if (actualizando && mat != null) {
+            if (!mat.isEstado()) {
+                jbActualizar.setEnabled(false);
+            } else {
+                jbActualizar.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jrbInactivoActionPerformed
+
+    private void jtfAnioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAnioKeyTyped
+        // TODO add your handling code here:
+        char anio = evt.getKeyChar();
+
+        validarNumeros(anio, evt);//valida que solo se puedan ingresar numeros 
+
+        if (jtfAnio.getText().length() > 1) {//con un limite de 4 digitos si quiere escribir más directamente no se lo permite y le muestra el msj.
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "1 digito permitido para el campo 'año'", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jtfAnioKeyTyped
+
+    private void jtfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyTyped
+        // TODO add your handling code here:
+        jbGuardar.setEnabled(true);
+        char c = evt.getKeyChar();
+        validarLetras(c, evt);
+
+        if (actualizando && mat.getNombre().equals(jtfNombre.getText())) {
+            jbActualizar.setEnabled(false);
+        }
+        if (actualizando && !mat.getNombre().equals(jtfNombre.getText())) {
+            jbActualizar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jtfNombreKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Estados;
@@ -405,7 +569,9 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanelFormulario;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbBuscar;
@@ -413,6 +579,7 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JRadioButton jrbActivo;
     private javax.swing.JRadioButton jrbInactivo;
+    private javax.swing.JTable jtMaterias;
     private javax.swing.JTextField jtfAnio;
     private javax.swing.JTextField jtfID;
     private javax.swing.JTextField jtfNombre;

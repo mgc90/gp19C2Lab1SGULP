@@ -29,30 +29,28 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         deshabilitarBotones();
         cargarTabla();
     }
-        private void limpiarCampos() {
-        //vaciamos campos
-        jTextFieldID.setText("");
-        jTextFieldDNI.setText("");
-        jTextFieldNombre.setText("");
-        jTextFieldApellido.setText("");
-        jDateChooserCalendario.setDate(null);
+    private void limpiarCampos() {
+        jtfID.setText("");
+        jtfDNI.setText("");
+        jtfNombre.setText("");
+        jtfApellido.setText("");
+        jdcCalendario.setDate(null);
         estados.clearSelection();
     }
 
     private void deshabilitarBotones() {
-        jButtonBuscar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonBorrar.setEnabled(false);
-        jButtonActualizar.setEnabled(false);
-        jButtonLimpiar.setEnabled(false);
+        jbBuscar.setEnabled(false);
+        jbGuardar.setEnabled(false);
+        jbBorrar.setEnabled(false);
+        jbActualizar.setEnabled(false);
+        jbLimpiar.setEnabled(false);
 
     }
     private void habilitarBotones(){
-        jButtonBuscar.setEnabled(true);
-        jButtonGuardar.setEnabled(true);
-        jButtonBorrar.setEnabled(true);
-        //jButtonActualizar.setEnabled(true);
-        jButtonLimpiar.setEnabled(true);
+        jbBuscar.setEnabled(true);
+        jbGuardar.setEnabled(true);
+        jbBorrar.setEnabled(true);
+        jbLimpiar.setEnabled(true);
     
     }
 
@@ -70,8 +68,8 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         }
     }
     public void actualizarEstado(boolean estado){
-            jRadioButtonActivo.setSelected(estado);
-            jRadioButtonInactivo.setSelected(!estado);
+            jrbActivo.setSelected(estado);
+            jrbInactivo.setSelected(!estado);
         
     }
     
@@ -84,8 +82,6 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
             return i;
         }
     }
-    
-    
     
     private void cargarTabla(){
         modelo.setRowCount(0);
@@ -129,22 +125,22 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jpFormulario = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldNombre = new javax.swing.JTextField();
+        jtfNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldDNI = new javax.swing.JTextField();
+        jtfDNI = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldApellido = new javax.swing.JTextField();
+        jtfApellido = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jDateChooserCalendario = new com.toedter.calendar.JDateChooser();
+        jdcCalendario = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
-        jRadioButtonActivo = new javax.swing.JRadioButton();
-        jRadioButtonInactivo = new javax.swing.JRadioButton();
-        jButtonGuardar = new javax.swing.JButton();
-        jButtonBorrar = new javax.swing.JButton();
-        jButtonActualizar = new javax.swing.JButton();
-        jButtonLimpiar = new javax.swing.JButton();
-        jButtonBuscar = new javax.swing.JButton();
-        jTextFieldID = new javax.swing.JTextField();
+        jrbActivo = new javax.swing.JRadioButton();
+        jrbInactivo = new javax.swing.JRadioButton();
+        jbGuardar = new javax.swing.JButton();
+        jbBorrar = new javax.swing.JButton();
+        jbActualizar = new javax.swing.JButton();
+        jbLimpiar = new javax.swing.JButton();
+        jbBuscar = new javax.swing.JButton();
+        jtfID = new javax.swing.JTextField();
         jLabelID = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtAlumnos = new javax.swing.JTable();
@@ -156,65 +152,67 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Formulario de Alumnos");
+        jLabel1.setText("Gestión de Alumnos");
         jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Symbol", 1, 36), new java.awt.Color(51, 51, 51))); // NOI18N
+        jLabel1.setEnabled(false);
+        jLabel1.setFocusable(false);
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel2.setText("Nombre:");
 
-        jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldNombreKeyReleased(evt);
+                jtfNombreKeyReleased(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel3.setText("Apellido:");
 
-        jTextFieldDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtfDNI.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldDNIKeyReleased(evt);
+                jtfDNIKeyReleased(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel4.setText("DNI:");
 
-        jTextFieldApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldApellidoKeyReleased(evt);
+                jtfApellidoKeyReleased(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel5.setText("Fecha de Nacimiento:");
 
-        jDateChooserCalendario.setMaxSelectableDate(new java.util.Date(1199156512000L));
-        jDateChooserCalendario.setMinSelectableDate(new java.util.Date(-1735670480000L));
-        jDateChooserCalendario.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        jdcCalendario.setMaxSelectableDate(new java.util.Date(1199156512000L));
+        jdcCalendario.setMinSelectableDate(new java.util.Date(-1735670480000L));
+        jdcCalendario.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jDateChooserCalendarioPropertyChange(evt);
+                jdcCalendarioPropertyChange(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel6.setText("Estado:");
 
-        estados.add(jRadioButtonActivo);
-        jRadioButtonActivo.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
-        jRadioButtonActivo.setText("Activo");
-        jRadioButtonActivo.addActionListener(new java.awt.event.ActionListener() {
+        estados.add(jrbActivo);
+        jrbActivo.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        jrbActivo.setText("Activo");
+        jrbActivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonActivoActionPerformed(evt);
+                jrbActivoActionPerformed(evt);
             }
         });
 
-        estados.add(jRadioButtonInactivo);
-        jRadioButtonInactivo.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
-        jRadioButtonInactivo.setText("Inactivo");
-        jRadioButtonInactivo.addActionListener(new java.awt.event.ActionListener() {
+        estados.add(jrbInactivo);
+        jrbInactivo.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        jrbInactivo.setText("Inactivo");
+        jrbInactivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonInactivoActionPerformed(evt);
+                jrbInactivoActionPerformed(evt);
             }
         });
 
@@ -233,14 +231,14 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6))
                 .addGap(41, 41, 41)
                 .addGroup(jpFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpFormularioLayout.createSequentialGroup()
-                        .addComponent(jRadioButtonActivo)
+                        .addComponent(jrbActivo)
                         .addGap(36, 36, 36)
-                        .addComponent(jRadioButtonInactivo))
-                    .addComponent(jDateChooserCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jrbInactivo))
+                    .addComponent(jdcCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpFormularioLayout.setVerticalGroup(
@@ -249,80 +247,81 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jpFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jpFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpFormularioLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jpFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jpFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooserCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdcCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jpFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jRadioButtonActivo)
-                    .addComponent(jRadioButtonInactivo))
+                    .addComponent(jrbActivo)
+                    .addComponent(jrbInactivo))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jButtonGuardar.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        jButtonGuardar.setText("Guardar");
-        jButtonGuardar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+        jbGuardar.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jbGuardar.setText("Guardar");
+        jbGuardar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarActionPerformed(evt);
+                jbGuardarActionPerformed(evt);
             }
         });
 
-        jButtonBorrar.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        jButtonBorrar.setText("Borrar");
-        jButtonBorrar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButtonBorrar.setEnabled(false);
-        jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
+        jbBorrar.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jbBorrar.setText("Borrar");
+        jbBorrar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jbBorrar.setEnabled(false);
+        jbBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBorrarActionPerformed(evt);
+                jbBorrarActionPerformed(evt);
             }
         });
 
-        jButtonActualizar.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        jButtonActualizar.setText("Actualizar");
-        jButtonActualizar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButtonActualizar.setEnabled(false);
-        jButtonActualizar.addActionListener(new java.awt.event.ActionListener() {
+        jbActualizar.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jbActualizar.setText("Actualizar");
+        jbActualizar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jbActualizar.setEnabled(false);
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonActualizarActionPerformed(evt);
+                jbActualizarActionPerformed(evt);
             }
         });
 
-        jButtonLimpiar.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        jButtonLimpiar.setText("Limpiar");
-        jButtonLimpiar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButtonLimpiar.setEnabled(false);
-        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+        jbLimpiar.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jbLimpiar.setText("Limpiar");
+        jbLimpiar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jbLimpiar.setEnabled(false);
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimpiarActionPerformed(evt);
+                jbLimpiarActionPerformed(evt);
             }
         });
 
-        jButtonBuscar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jButtonBuscar.setText("Buscar");
-        jButtonBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+        jbBuscar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jbBuscar.setText("Buscar");
+        jbBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jbBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuscarActionPerformed(evt);
+                jbBuscarActionPerformed(evt);
             }
         });
 
-        jTextFieldID.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtfID.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldIDKeyTyped(evt);
+                jtfIDKeyTyped(evt);
             }
         });
 
@@ -355,6 +354,11 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Lista Alumnos");
         jLabel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel7.setEnabled(false);
+        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel7.setOpaque(true);
+        jLabel7.setRequestFocusEnabled(false);
+        jLabel7.setVerifyInputWhenFocusTarget(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -366,46 +370,48 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelID, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
-                                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jpFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBorrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonActualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jbActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addComponent(jbGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbBorrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(27, 27, 27))
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(179, 179, 179))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonLimpiar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jbBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jpFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
@@ -417,9 +423,9 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        // TODO add your handling code here: --- OK 
-        int id = Integer.valueOf(jTextFieldID.getText());
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.valueOf(jtfID.getText());
         alum = alumData.buscarAlumno(id);
         
         if (alum == null) {
@@ -428,52 +434,50 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
             deshabilitarBotones();
             return;
         }
-            jTextFieldDNI.setText(alum.getDni() + "");
-            jTextFieldNombre.setText(alum.getNombre());
-            jTextFieldApellido.setText(alum.getApellido());
-            jDateChooserCalendario.setDate(java.sql.Date.valueOf(alum.getFechaNacimiento()));
+            jtfDNI.setText(alum.getDni() + "");
+            jtfNombre.setText(alum.getNombre());
+            jtfApellido.setText(alum.getApellido());
+            jdcCalendario.setDate(java.sql.Date.valueOf(alum.getFechaNacimiento()));
             actualizarEstado(alum.getEstado());
             actualizando = true;
              habilitarBotones();
-            jButtonGuardar.setEnabled(false);
-            
-        
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
+            jbGuardar.setEnabled(false);
 
-    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here
-        //-------------REVISAR---------------
-        if(jTextFieldDNI.getText().length() < 5){
+        if(jtfDNI.getText().length() < 5){
             JOptionPane.showMessageDialog(this, "El campo DNI requiere 5 dígitos" );
-        } else if(jTextFieldNombre.getText().length() < 3 ||
-                jTextFieldApellido.getText().length() < 3){
+        } else if(jtfNombre.getText().length() < 3 ||
+                jtfApellido.getText().length() < 3){
             JOptionPane.showMessageDialog(this, "Nombre y apellido deben tener " 
                     + "al menos 3 caracteres.");
         }
         else{
             try {
-                //valido campos vacios antes de guardar
-                if (jTextFieldDNI.getText().isEmpty() || jTextFieldNombre.getText().isEmpty()
-                        || jTextFieldApellido.getText().isEmpty() || jDateChooserCalendario.getDate() == null
-                        || !jRadioButtonActivo.isSelected() && !jRadioButtonInactivo.isSelected()) {
+                
+                if (jtfDNI.getText().isEmpty() || jtfNombre.getText().isEmpty()
+                        || jtfApellido.getText().isEmpty() || jdcCalendario.getDate() == null
+                        || !jrbActivo.isSelected() && !jrbInactivo.isSelected()) {
                     JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "WARNING", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
-                int dni = Integer.valueOf(jTextFieldDNI.getText());
-                String nombre = jTextFieldNombre.getText();
-                String apellido = jTextFieldApellido.getText();
-                boolean estado = jRadioButtonActivo.isSelected();
+                int dni = Integer.valueOf(jtfDNI.getText());
+                String nombre = jtfNombre.getText();
+                String apellido = jtfApellido.getText();
+                boolean estado = jrbActivo.isSelected();
 
-                LocalDate fechaNac = jDateChooserCalendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate fechaNac = jdcCalendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
                 Alumno alum = new Alumno(dni,apellido, nombre, fechaNac, estado);
                 alumData.guardarAlumno(alum);
 
-                jTextFieldID.setText(alum.getIdAlumno() + "");
+                jtfID.setText(alum.getIdAlumno() + "");
                 JOptionPane.showMessageDialog(this, "Alumno guardado correctamente!");
                 limpiarCampos();
-                jButtonLimpiar.setEnabled(true);
+                jbLimpiar.setEnabled(true);
                 cargarTabla();
                 deshabilitarBotones();
 
@@ -481,30 +485,29 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "El campo DNI debe ser de valor númerico" + e.getMessage());
             }
         }
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
-    private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
         // TODO add your handling code here:                
-        if(jTextFieldDNI.getText().length() < 5){
+        if(jtfDNI.getText().length() < 5){
             JOptionPane.showMessageDialog(this, "El campo DNI requiere 5 dígitos" );
-        } else if(jTextFieldNombre.getText().length() < 3 ||
-                jTextFieldApellido.getText().length() < 3){
+        } else if(jtfNombre.getText().length() < 3 ||
+                jtfApellido.getText().length() < 3){
             JOptionPane.showMessageDialog(this, "Nombre y apellido deben tener " 
                     + "al menos 3 caracteres.");
         }
         else{
-            //---------REVISAR----------------
-            int id = Integer.valueOf(jTextFieldID.getText());
-            int dni = Integer.valueOf(jTextFieldDNI.getText());
-            String apellido = jTextFieldApellido.getText();
-            String nombre = jTextFieldNombre.getText();
+            int id = Integer.valueOf(jtfID.getText());
+            int dni = Integer.valueOf(jtfDNI.getText());
+            String apellido = jtfApellido.getText();
+            String nombre = jtfNombre.getText();
 
-            LocalDate fechaNac = jDateChooserCalendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fechaNac = jdcCalendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             boolean estado;
 
-            if(jRadioButtonActivo.isSelected()){
+            if(jrbActivo.isSelected()){
                 estado = true;
-            }else if(jRadioButtonInactivo.isSelected()){
+            }else if(jrbInactivo.isSelected()){
                 estado = false;
             } else{
                 JOptionPane.showMessageDialog(this, "Debe seleccionar un estado.");
@@ -516,18 +519,17 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
             alumData.actualizarAlumno(alum);
             limpiarCampos();
             actualizando = false;
-            jButtonActualizar.setEnabled(false);
+            jbActualizar.setEnabled(false);
             cargarTabla();
             JOptionPane.showMessageDialog(this, "Actualizado correctamente.");
             deshabilitarBotones();
             
         }
-    }//GEN-LAST:event_jButtonActualizarActionPerformed
+    }//GEN-LAST:event_jbActualizarActionPerformed
 
-    private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
         // TODO add your handling code here:
-        //----------------REVISAR -------------------
-        int id = Integer.valueOf(jTextFieldID.getText());
+        int id = Integer.valueOf(jtfID.getText());
         Alumno alum = new Alumno();
         alum.setIdAlumno(id);
 
@@ -535,128 +537,122 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         limpiarCampos();
         actualizando = false;
         cargarTabla();
-        JOptionPane.showMessageDialog(this, "Borrado correctamente.");
+        JOptionPane.showMessageDialog(this, "Alumno eliminado correctamente.");
         deshabilitarBotones();
-    }//GEN-LAST:event_jButtonBorrarActionPerformed
+    }//GEN-LAST:event_jbBorrarActionPerformed
 
-    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
-        // TODO add your handling code here: ---------OK
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        // TODO add your handling code here:
         limpiarCampos();
         deshabilitarBotones();
         actualizando = false;
-    }//GEN-LAST:event_jButtonLimpiarActionPerformed
+    }//GEN-LAST:event_jbLimpiarActionPerformed
 
-    private void jTextFieldNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyReleased
+    private void jtfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyReleased
         // TODO add your handling code here:
         
         char c = evt.getKeyChar();
         validarLetras(c, evt);
-        if(actualizando && alum.getNombre().equals(jTextFieldNombre.getText())) {
-            jButtonActualizar.setEnabled(false);
+        if(actualizando && alum.getNombre().equals(jtfNombre.getText())) {
+            jbActualizar.setEnabled(false);
         }
-        if(actualizando && !alum.getNombre().equals(jTextFieldNombre.getText())){
-            jButtonActualizar.setEnabled(true);
+        if(actualizando && !alum.getNombre().equals(jtfNombre.getText())){
+            jbActualizar.setEnabled(true);
         } 
-    }//GEN-LAST:event_jTextFieldNombreKeyReleased
+    }//GEN-LAST:event_jtfNombreKeyReleased
 
-    private void jTextFieldDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDNIKeyReleased
+    private void jtfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDNIKeyReleased
         // TODO add your handling code here:
-        if(!actualizando)jButtonGuardar.setEnabled(true);
+        if(!actualizando)jbGuardar.setEnabled(true);
         Character dni = evt.getKeyChar();
 
         validarNumeros(dni, evt);
 
 
-        if (jTextFieldDNI.getText().length() >= 10) {
+        if (jtfDNI.getText().length() >= 10) {
             JOptionPane.showMessageDialog(this, "10 digitos permitidos", "Warning", JOptionPane.WARNING_MESSAGE);
             evt.consume();
-            jTextFieldDNI.requestFocus();
+            jtfDNI.requestFocus();
         }
        
         
-        if(!jTextFieldDNI.getText().isEmpty()){
-            if(actualizando && alum.getDni() == Integer.parseInt(jTextFieldDNI.getText())) {
-                jButtonActualizar.setEnabled(false);
+        if(!jtfDNI.getText().isEmpty()){
+            if(actualizando && alum.getDni() == Integer.parseInt(jtfDNI.getText())) {
+                jbActualizar.setEnabled(false);
             }
-            if(actualizando && alum.getDni() != Integer.parseInt(jTextFieldDNI.getText())){
-                jButtonActualizar.setEnabled(true);
+            if(actualizando && alum.getDni() != Integer.parseInt(jtfDNI.getText())){
+                jbActualizar.setEnabled(true);
             } 
         }
-    }//GEN-LAST:event_jTextFieldDNIKeyReleased
+    }//GEN-LAST:event_jtfDNIKeyReleased
 
-    private void jTextFieldApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidoKeyReleased
+    private void jtfApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyReleased
         // TODO add your handling code here:
         char c = evt.getKeyChar();
         validarLetras(c, evt);
-        if(actualizando && alum.getApellido().equals(jTextFieldApellido.getText())) {
-            jButtonActualizar.setEnabled(false);
+        if(actualizando && alum.getApellido().equals(jtfApellido.getText())) {
+            jbActualizar.setEnabled(false);
         }
-        if(actualizando && !alum.getApellido().equals(jTextFieldApellido.getText())){
-            jButtonActualizar.setEnabled(true);
+        if(actualizando && !alum.getApellido().equals(jtfApellido.getText())){
+            jbActualizar.setEnabled(true);
         } 
-    }//GEN-LAST:event_jTextFieldApellidoKeyReleased
+    }//GEN-LAST:event_jtfApellidoKeyReleased
 
-    private void jTextFieldIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldIDKeyTyped
+    private void jtfIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfIDKeyTyped
         // TODO add your handling code here:
-        jButtonBuscar.setEnabled(true);
+        jbBuscar.setEnabled(true);
         char id = evt.getKeyChar();
 
         validarNumeros(id, evt);
-        jTextFieldID.requestFocus();
+        jtfID.requestFocus();
 
-        if (jTextFieldID.getText().length() >= 5) {
+        if (jtfID.getText().length() >= 5) {
             JOptionPane.showMessageDialog(this, "5 digitos permitidos", "Warning", JOptionPane.WARNING_MESSAGE);
             evt.consume();
-            jTextFieldID.requestFocus();
+            jtfID.requestFocus();
         }
-    }//GEN-LAST:event_jTextFieldIDKeyTyped
+    }//GEN-LAST:event_jtfIDKeyTyped
 
-    private void jDateChooserCalendarioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooserCalendarioPropertyChange
+    private void jdcCalendarioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdcCalendarioPropertyChange
         // TODO add your handling code here:
        
-        Date fechaDate = jDateChooserCalendario.getDate();
+        Date fechaDate = jdcCalendario.getDate();
         LocalDate fecha;
         if(fechaDate != null){
             fecha = fechaDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             
             if(actualizando && alum.getFechaNacimiento().equals(fecha)) {
-                jButtonActualizar.setEnabled(false);
+                jbActualizar.setEnabled(false);
             }
             if(actualizando && !alum.getFechaNacimiento().equals(fecha)){
-                jButtonActualizar.setEnabled(true);
+                jbActualizar.setEnabled(true);
             } 
         }
-    }//GEN-LAST:event_jDateChooserCalendarioPropertyChange
+    }//GEN-LAST:event_jdcCalendarioPropertyChange
 
-    private void jRadioButtonActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonActivoActionPerformed
+    private void jrbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbActivoActionPerformed
         // TODO add your handling code here:
         if(actualizando && alum.getEstado()){
-            jButtonActualizar.setEnabled(false);
+            jbActualizar.setEnabled(false);
         }
         if(actualizando && !alum.getEstado()){
-            jButtonActualizar.setEnabled(true);
+            jbActualizar.setEnabled(true);
         }
-    }//GEN-LAST:event_jRadioButtonActivoActionPerformed
+    }//GEN-LAST:event_jrbActivoActionPerformed
 
-    private void jRadioButtonInactivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonInactivoActionPerformed
+    private void jrbInactivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbInactivoActionPerformed
         // TODO add your handling code here:
         if(actualizando && !alum.getEstado()){
-            jButtonActualizar.setEnabled(false);
+            jbActualizar.setEnabled(false);
         }
         if(actualizando && alum.getEstado()){
-            jButtonActualizar.setEnabled(true);
+            jbActualizar.setEnabled(true);
         }
-    }//GEN-LAST:event_jRadioButtonInactivoActionPerformed
+    }//GEN-LAST:event_jrbInactivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup estados;
-    private javax.swing.JButton jButtonActualizar;
-    private javax.swing.JButton jButtonBorrar;
-    private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonLimpiar;
-    private com.toedter.calendar.JDateChooser jDateChooserCalendario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -665,15 +661,21 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelID;
-    private javax.swing.JRadioButton jRadioButtonActivo;
-    private javax.swing.JRadioButton jRadioButtonInactivo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextFieldApellido;
-    private javax.swing.JTextField jTextFieldDNI;
-    private javax.swing.JTextField jTextFieldID;
-    private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JButton jbActualizar;
+    private javax.swing.JButton jbBorrar;
+    private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbLimpiar;
+    private com.toedter.calendar.JDateChooser jdcCalendario;
     private javax.swing.JPanel jpFormulario;
+    private javax.swing.JRadioButton jrbActivo;
+    private javax.swing.JRadioButton jrbInactivo;
     private javax.swing.JTable jtAlumnos;
+    private javax.swing.JTextField jtfApellido;
+    private javax.swing.JTextField jtfDNI;
+    private javax.swing.JTextField jtfID;
+    private javax.swing.JTextField jtfNombre;
     // End of variables declaration//GEN-END:variables
 
    

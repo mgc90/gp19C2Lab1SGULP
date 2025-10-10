@@ -92,8 +92,7 @@ public class MateriaData {
             ps.executeUpdate();
             
             ps.close();
-            JOptionPane.showMessageDialog(null, "Materia actualizada correctamente");
-            
+            System.out.println("Materia actualizada correctamente");
         }catch(SQLException ex) {//esa excepcion sirve para cuando no se puede hacer nada referido a codigo SQL
             JOptionPane.showMessageDialog(null, "Error al actualizar datos" + ex.getMessage());
         }
@@ -109,7 +108,7 @@ public class MateriaData {
             ps.executeUpdate();
             
             ps.close();
-            JOptionPane.showMessageDialog(null, "Materia eliminada correctamente ");
+            System.out.println("Materia eliminada correctamente");
             
         }catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar" +  ex.getMessage());
@@ -130,7 +129,7 @@ public class MateriaData {
             ps.executeUpdate();
             
             ps.close();
-            JOptionPane.showMessageDialog(null, "Estado actualizado con éxito");
+            System.out.println("Estado actualizado con éxito");
             
         }catch(SQLException | NullPointerException ex){
             JOptionPane.showMessageDialog(null, "Error al cambiar estado: " + ex.getMessage());
@@ -159,7 +158,7 @@ public class MateriaData {
             }
             ps.close();
             rs.close();
-            //JOptionPane.showMessageDialog(null, "Listado de materias recuperado con éxito!");
+            System.out.println("Listado de materias recuperado con éxito!");
             
             
         }catch(SQLException e){
