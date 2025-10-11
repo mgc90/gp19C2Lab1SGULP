@@ -2,6 +2,7 @@
 package vistaControl;
 
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -27,13 +28,15 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         limpiarCampos();
         deshabilitarBotones();
         cargarTabla();
+        jYearChooserAño.setValue(-1);
+        jYearChooserAño.setYear(0);
     }
     private void limpiarCampos(){
     jtfID.setText("");
     jtfNombre.setText("");
-    jtfAnio.setText("");
+    jYearChooserAño.setValue(-1);//Para que se muestre vacio
+    jYearChooserAño.setYear(0);//Settea el año a 0
     Estados.clearSelection();
-    
     jtfNombre.requestFocus();
     }
 
@@ -49,7 +52,6 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jbBuscar.setEnabled(true);
         jbGuardar.setEnabled(true);
         jbBorrar.setEnabled(true);
-        //jbActualizar.setEnabled(true);
         jbLimpiar.setEnabled(true);
         
     
@@ -106,7 +108,16 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         }
         jtMaterias.setModel(modelo);
     }
-    
+    private int validarAnio(int anio){
+        anio = jYearChooserAño.getYear();
+        int anioActual = LocalDate.now().getYear();
+        
+        if(anio < 2000 || anio > anioActual){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un año valido", "Año inválido", JOptionPane.WARNING_MESSAGE);
+            jYearChooserAño.requestFocus();
+        }
+        return anio;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,19 +134,23 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jbBuscar = new javax.swing.JButton();
         jPanelFormulario = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jtfAnio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jtfNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jrbActivo = new javax.swing.JRadioButton();
         jrbInactivo = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
+        jYearChooserAño = new com.toedter.calendar.JYearChooser();
         jbGuardar = new javax.swing.JButton();
         jbActualizar = new javax.swing.JButton();
         jbBorrar = new javax.swing.JButton();
         jbLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtMaterias = new javax.swing.JTable();
+
+        setClosable(true);
+        setResizable(true);
+        setTitle("Formulario de Materias");
 
         jLabel1.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -166,16 +181,13 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setText("Nombre:");
 
-        jtfAnio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfAnioKeyTyped(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel4.setText("Año:");
 
         jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfNombreKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfNombreKeyTyped(evt);
             }
@@ -207,6 +219,12 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jLabel7.setText("Lista Materias");
         jLabel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jYearChooserAño.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jYearChooserAño.setEndYear(LocalDate.now().getYear()
+        );
+        jYearChooserAño.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jYearChooserAño.setStartYear(2000);
+
         javax.swing.GroupLayout jPanelFormularioLayout = new javax.swing.GroupLayout(jPanelFormulario);
         jPanelFormulario.setLayout(jPanelFormularioLayout);
         jPanelFormularioLayout.setHorizontalGroup(
@@ -220,12 +238,11 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
                 .addGap(45, 45, 45)
                 .addGroup(jPanelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jtfAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanelFormularioLayout.createSequentialGroup()
-                            .addComponent(jrbActivo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jrbInactivo))))
+                    .addGroup(jPanelFormularioLayout.createSequentialGroup()
+                        .addComponent(jrbActivo)
+                        .addGap(64, 64, 64)
+                        .addComponent(jrbInactivo))
+                    .addComponent(jYearChooserAño, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanelFormularioLayout.createSequentialGroup()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,7 +258,7 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jtfAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jYearChooserAño, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -381,33 +398,29 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             //valido campos vacios antes de guardar
-            if (jtfNombre.getText().isEmpty() || jtfAnio.getText().isEmpty()
+            if (jtfNombre.getText().isEmpty() || jYearChooserAño.getYear() == 0
                     || !jrbActivo.isSelected() && !jrbInactivo.isSelected()) {
 
                 JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if (jtfAnio.getText().length() > 1) {
-                JOptionPane.showMessageDialog(this, "El campo año permite 1 solo dígito");
-                jtfAnio.requestFocus();
-                return;
-            }
+            
             if (jtfNombre.getText().length() < 5) {
                 JOptionPane.showMessageDialog(this, "Nombre debe tener al menos 5 caracteres.");
                 jtfNombre.requestFocus();
                 return;
             }
-
+            
             String nombre = jtfNombre.getText();
-            int anio = Integer.valueOf(jtfAnio.getText());
+            int anio = jYearChooserAño.getYear();
             boolean estado = jrbActivo.isSelected();
 
+            validarAnio(anio);
+            
             Materia mat = new Materia(nombre, anio, estado);
             materiaData.agregarMateria(mat);
 
             jtfID.setText(mat.getIdMateria() + "");
-
-            JOptionPane.showMessageDialog(this, "Materia guardada correctamente!");
             limpiarCampos();
             jbLimpiar.setEnabled(true);
             cargarTabla();
@@ -442,7 +455,7 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         }
         
             jtfNombre.setText(mat.getNombre());
-            jtfAnio.setText(mat.getAnio() + "");
+            jYearChooserAño.setYear(mat.getAnio());
             actualizarEstado(mat.isEstado());
             
             actualizando = true;
@@ -453,10 +466,9 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
 
     private void jbActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseClicked
         // TODO add your handling code here:
-        
-        if (jtfAnio.getText().length() > 1) {
-            JOptionPane.showMessageDialog(this, "El campo año permite 1 solo dígito");
-            jtfAnio.requestFocus();
+        int anio = jYearChooserAño.getYear();
+        if (validarAnio(anio) != 4) {
+            JOptionPane.showMessageDialog(this, "El campo año permite solo 4 dígitos");
             return;
         }
         if (jtfNombre.getText().length() < 5) {
@@ -466,7 +478,7 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         }
         int id = Integer.valueOf(jtfID.getText());
         String nombre = jtfNombre.getText();
-        int anio = Integer.valueOf(jtfAnio.getText());
+        
         boolean estado;
         if (jrbActivo.isSelected()) {
             estado = true;
@@ -536,18 +548,6 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jrbInactivoActionPerformed
 
-    private void jtfAnioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAnioKeyTyped
-        // TODO add your handling code here:
-        char anio = evt.getKeyChar();
-
-        validarNumeros(anio, evt);//valida que solo se puedan ingresar numeros 
-
-        if (jtfAnio.getText().length() > 1) {//con un limite de 4 digitos si quiere escribir más directamente no se lo permite y le muestra el msj.
-            evt.consume();
-            JOptionPane.showMessageDialog(this, "1 digito permitido para el campo 'año'", "Warning", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jtfAnioKeyTyped
-
     private void jtfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyTyped
         // TODO add your handling code here:
         jbGuardar.setEnabled(true);
@@ -562,6 +562,20 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtfNombreKeyTyped
 
+    private void jtfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyReleased
+        // TODO add your handling code here:
+        jbGuardar.setEnabled(true);
+        char c = evt.getKeyChar();
+        validarLetras(c, evt);
+
+        if (actualizando && mat.getNombre().equals(jtfNombre.getText())) {
+            jbActualizar.setEnabled(false);
+        }
+        if (actualizando && !mat.getNombre().equals(jtfNombre.getText())) {
+            jbActualizar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jtfNombreKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Estados;
     private javax.swing.JLabel jLabel1;
@@ -572,6 +586,7 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanelFormulario;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JYearChooser jYearChooserAño;
     private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbBuscar;
@@ -580,7 +595,6 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jrbActivo;
     private javax.swing.JRadioButton jrbInactivo;
     private javax.swing.JTable jtMaterias;
-    private javax.swing.JTextField jtfAnio;
     private javax.swing.JTextField jtfID;
     private javax.swing.JTextField jtfNombre;
     // End of variables declaration//GEN-END:variables

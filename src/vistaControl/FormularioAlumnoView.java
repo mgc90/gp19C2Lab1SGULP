@@ -19,7 +19,6 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
     private Alumno alum;
     private DefaultTableModel modelo = new DefaultTableModel();
     private  List<Alumno> lista;
-
     private AlumnoData alumData;
 
     public FormularioAlumnoView(AlumnoData aData) {
@@ -513,32 +512,40 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Debe seleccionar un estado.");
                 return;
             }
-            Alumno alum = new Alumno(dni, nombre, apellido, fechaNac, estado);
-            alum.setIdAlumno(id);
+            Alumno alum;
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Desea actualizar el alumno seleccionado? S/N", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
 
-            alumData.actualizarAlumno(alum);
-            limpiarCampos();
-            actualizando = false;
-            jbActualizar.setEnabled(false);
-            cargarTabla();
-            JOptionPane.showMessageDialog(this, "Actualizado correctamente.");
-            deshabilitarBotones();
-            
+                alum = new Alumno(dni, nombre, apellido, fechaNac, estado);
+                alum.setIdAlumno(id);
+
+                alumData.actualizarAlumno(alum);
+                limpiarCampos();
+                actualizando = false;
+                jbActualizar.setEnabled(false);
+                cargarTabla();
+                JOptionPane.showMessageDialog(this, "Actualizado correctamente.");
+                deshabilitarBotones();
+            }
         }
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
         // TODO add your handling code here:
         int id = Integer.valueOf(jtfID.getText());
-        Alumno alum = new Alumno();
-        alum.setIdAlumno(id);
+        Alumno alum;
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia seleccionada? S/N", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            alum = new Alumno();
+            alum.setIdAlumno(id);
 
-        alumData.eliminarAlumno(alum);
-        limpiarCampos();
-        actualizando = false;
-        cargarTabla();
-        JOptionPane.showMessageDialog(this, "Alumno eliminado correctamente.");
-        deshabilitarBotones();
+            alumData.eliminarAlumno(alum);
+            limpiarCampos();
+            actualizando = false;
+            cargarTabla();
+            JOptionPane.showMessageDialog(this, "Alumno eliminado correctamente.");
+            deshabilitarBotones();
+        }
     }//GEN-LAST:event_jbBorrarActionPerformed
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed

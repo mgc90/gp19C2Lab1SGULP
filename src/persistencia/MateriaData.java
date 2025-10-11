@@ -24,11 +24,11 @@ public class MateriaData {
     }
     
     public void agregarMateria(Materia m){
-        if(existeMateria(m.getNombre())){//verificamos que la materia no existe antes de guardarla
+        /*if(existeMateria(m.getNombre())){//verificamos que la materia no existe antes de guardarla
             JOptionPane.showMessageDialog(null, "La materia ya existe");
             
             return;
-        }
+        }*/
         
         String query = "INSERT INTO materia(nombre, anio, estado) VALUES(?, ?, ?)";
         
@@ -47,11 +47,12 @@ public class MateriaData {
                 JOptionPane.showMessageDialog(null,"No se pudo obtener ID de la materia");
                 //System.out.println("No se pudo obtener ID de la materia");
             ps.close();
-            System.out.println("Materia guardada correctamente");
+            JOptionPane.showMessageDialog(null, "Materia guardada correctamente!");
+            //System.out.println("Materia guardada correctamente");
             
         }catch(SQLException ex) {//esa excepcion sirve para cuando no se puede hacer nada referido a codigo SQL
-            JOptionPane.showMessageDialog(null,"Error al guardar datos" + ex.getMessage());
-            //System.out.println("Error al guardar datos" + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al guardar datos: " + ex.getMessage());
+            System.out.println("Error al guardar datos" + ex.getMessage());
         }
     }
     
