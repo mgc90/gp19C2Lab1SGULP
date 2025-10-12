@@ -18,7 +18,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
     private boolean actualizando = false;
     private Alumno alum;
     private DefaultTableModel modelo = new DefaultTableModel();
-    private  List<Alumno> lista;
+    
     private AlumnoData alumData;
 
     public FormularioAlumnoView(AlumnoData aData) {
@@ -473,12 +473,14 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
                 Alumno alum = new Alumno(dni,apellido, nombre, fechaNac, estado);
                 alumData.guardarAlumno(alum);
 
-                jtfID.setText(alum.getIdAlumno() + "");
-                JOptionPane.showMessageDialog(this, "Alumno guardado correctamente!");
-                limpiarCampos();
-                jbLimpiar.setEnabled(true);
-                cargarTabla();
-                deshabilitarBotones();
+                if(alumData.guardarAlumno(alum)){
+                    jtfID.setText(alum.getIdAlumno() + "");
+                    JOptionPane.showMessageDialog(this, "Alumno guardado correctamente!");
+                    limpiarCampos();
+                    jbLimpiar.setEnabled(true);
+                    cargarTabla();
+                    deshabilitarBotones();
+                }
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "El campo DNI debe ser de valor númerico" + e.getMessage());

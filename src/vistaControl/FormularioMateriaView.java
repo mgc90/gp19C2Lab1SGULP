@@ -16,7 +16,7 @@ import persistencia.AlumnoData;
 
 public class FormularioMateriaView extends javax.swing.JInternalFrame {
 
-    private AlumnoData alumnoData;
+
     private MateriaData materiaData;
     private Materia mat;
     private DefaultTableModel modelo = new DefaultTableModel();
@@ -222,7 +222,6 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
         jYearChooserAño.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jYearChooserAño.setEndYear(LocalDate.now().getYear()
         );
-        jYearChooserAño.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jYearChooserAño.setStartYear(2000);
 
         javax.swing.GroupLayout jPanelFormularioLayout = new javax.swing.GroupLayout(jPanelFormulario);
@@ -256,9 +255,9 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addGroup(jPanelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jYearChooserAño, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jYearChooserAño, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(33, 33, 33)
                 .addGroup(jPanelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -420,11 +419,18 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
             Materia mat = new Materia(nombre, anio, estado);
             materiaData.agregarMateria(mat);
 
+            if(materiaData.agregarMateria(mat)){
+                
+            
+
             jtfID.setText(mat.getIdMateria() + "");
+
+            JOptionPane.showMessageDialog(this, "Materia guardada correctamente!");
             limpiarCampos();
             jbLimpiar.setEnabled(true);
             cargarTabla();
             deshabilitarBotones();
+            } 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El campo año debe ser de valor númerico" + e.getMessage());
         }
@@ -461,7 +467,7 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
             actualizando = true;
             habilitarBotones();
             jbGuardar.setEnabled(false);
-            jbActualizar.setEnabled(true);
+            
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseClicked

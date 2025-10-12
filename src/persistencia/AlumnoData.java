@@ -24,7 +24,7 @@ public class AlumnoData {
         this.con = c.buscarConexion();
     }
     
-    public void guardarAlumno(Alumno a){
+    public boolean guardarAlumno(Alumno a){
         String query = "INSERT INTO alumno(dni, apellido, nombre, "
                 + "fechaNacimiento, estado) VALUES(?, ?, ?, ?, ?)"; //una query sql en un string
         
@@ -47,9 +47,11 @@ public class AlumnoData {
             ps.close();
             rs.close();
             System.out.println("Guardado con éxito!");
+            return true;
             
         }catch(SQLException e){//cuando no se puede hacer nada relacionado con SQL
             System.out.println("Error al guardar datos" + e.getMessage());
+            return false;
         }
     }
     
