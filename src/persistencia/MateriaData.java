@@ -165,30 +165,6 @@ public class MateriaData {
         return listaMat;
     }
     
-    //EXTRA
-    public boolean existeMateria(String nombre){
-        String query = "SELECT * FROM materia WHERE nombre = ?";
-        boolean existe = false;
-        
-        try{
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, nombre);
-            ResultSet rs = ps.executeQuery();
-            
-            if(rs.next()){
-                existe = true;
-            }
-            ps.close();
-            rs.close();
-            
-        }catch(SQLException ex){
-        
-            JOptionPane.showMessageDialog(null, "Error al verificar materia: " + ex.getMessage());
-                    
-        }
-        return existe;
-    } 
-
 }
     
     

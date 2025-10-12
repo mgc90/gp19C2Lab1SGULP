@@ -152,8 +152,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Gestión de Alumnos");
-        jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Symbol", 1, 36), new java.awt.Color(51, 51, 51))); // NOI18N
-        jLabel1.setEnabled(false);
+        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel1.setFocusable(false);
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -162,6 +161,9 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfNombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfNombreKeyTyped(evt);
             }
         });
 
@@ -172,6 +174,9 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfDNIKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfDNIKeyTyped(evt);
+            }
         });
 
         jLabel4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -180,6 +185,9 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jtfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfApellidoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfApellidoKeyTyped(evt);
             }
         });
 
@@ -353,7 +361,6 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Lista Alumnos");
         jLabel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel7.setEnabled(false);
         jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel7.setOpaque(true);
         jLabel7.setRequestFocusEnabled(false);
@@ -414,7 +421,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
                     .addComponent(jpFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
         );
@@ -450,8 +457,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "El campo DNI requiere 5 dígitos" );
         } else if(jtfNombre.getText().length() < 3 ||
                 jtfApellido.getText().length() < 3){
-            JOptionPane.showMessageDialog(this, "Nombre y apellido deben tener " 
-                    + "al menos 3 caracteres.");
+            JOptionPane.showMessageDialog(this, "Nombre y apellido deben tener al menos 3 caracteres.");
         }
         else{
             try {
@@ -559,37 +565,25 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
 
     private void jtfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyReleased
         // TODO add your handling code here:
+        String nombre = jtfNombre.getText();
         
-        char c = evt.getKeyChar();
-        validarLetras(c, evt);
-        if(actualizando && alum.getNombre().equals(jtfNombre.getText())) {
+        if(actualizando && alum .getNombre().equals(nombre)) {
             jbActualizar.setEnabled(false);
         }
-        if(actualizando && !alum.getNombre().equals(jtfNombre.getText())){
+        if(actualizando && !alum.getNombre().equals(nombre)){
             jbActualizar.setEnabled(true);
         } 
     }//GEN-LAST:event_jtfNombreKeyReleased
 
     private void jtfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDNIKeyReleased
         // TODO add your handling code here:
-        if(!actualizando)jbGuardar.setEnabled(true);
-        Character dni = evt.getKeyChar();
-
-        validarNumeros(dni, evt);
-
-
-        if (jtfDNI.getText().length() >= 10) {
-            JOptionPane.showMessageDialog(this, "10 digitos permitidos", "Warning", JOptionPane.WARNING_MESSAGE);
-            evt.consume();
-            jtfDNI.requestFocus();
-        }
-       
+        int dni = Integer.parseInt(jtfDNI.getText());
         
-        if(!jtfDNI.getText().isEmpty()){
-            if(actualizando && alum.getDni() == Integer.parseInt(jtfDNI.getText())) {
+        if(actualizando && alum != null){
+            if(alum.getDni() == dni) {
                 jbActualizar.setEnabled(false);
             }
-            if(actualizando && alum.getDni() != Integer.parseInt(jtfDNI.getText())){
+            if(alum.getDni() != dni){
                 jbActualizar.setEnabled(true);
             } 
         }
@@ -597,12 +591,12 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
 
     private void jtfApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyReleased
         // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        validarLetras(c, evt);
-        if(actualizando && alum.getApellido().equals(jtfApellido.getText())) {
+        String apellido = jtfApellido.getText();
+        
+        if(actualizando && alum.getApellido().equals(apellido)) {
             jbActualizar.setEnabled(false);
         }
-        if(actualizando && !alum.getApellido().equals(jtfApellido.getText())){
+        if(actualizando && !alum.getApellido().equals(apellido)){
             jbActualizar.setEnabled(true);
         } 
     }//GEN-LAST:event_jtfApellidoKeyReleased
@@ -611,7 +605,6 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         jbBuscar.setEnabled(true);
         char id = evt.getKeyChar();
-
         validarNumeros(id, evt);
         jtfID.requestFocus();
 
@@ -658,6 +651,33 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
             jbActualizar.setEnabled(true);
         }
     }//GEN-LAST:event_jrbInactivoActionPerformed
+
+    private void jtfDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDNIKeyTyped
+        // TODO add your handling code here:
+        if(!actualizando){
+            jbGuardar.setEnabled(true);
+        }
+        char dni = evt.getKeyChar();
+        validarNumeros(dni, evt);
+        
+        if (jtfDNI.getText().length() >= 10) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "10 digitos permitidos para el campo 'nombre' ", "Warning", JOptionPane.WARNING_MESSAGE);
+            jtfDNI.requestFocus();
+        }
+    }//GEN-LAST:event_jtfDNIKeyTyped
+
+    private void jtfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        validarLetras(c, evt);
+    }//GEN-LAST:event_jtfNombreKeyTyped
+
+    private void jtfApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        validarLetras(c, evt);
+    }//GEN-LAST:event_jtfApellidoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
