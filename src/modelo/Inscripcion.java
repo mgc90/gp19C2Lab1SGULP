@@ -19,6 +19,16 @@ public class Inscripcion {
         this.idMateria = idMateria;
     }
 
+    public Inscripcion(double nota, int idAlumno, int idMateria) {
+        this.nota = nota;
+        this.idAlumno = idAlumno;
+        this.idMateria = idMateria;
+    }
+
+    public Inscripcion() {
+    }
+    
+
     public int getIdInscripto() {
         return idInscripto;
     }
@@ -31,7 +41,7 @@ public class Inscripcion {
         return nota;
     }
 
-    public void setNota(int nota) {
+    public void setNota(double nota) {
         this.nota = nota;
     }
 

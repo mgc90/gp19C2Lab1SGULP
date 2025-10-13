@@ -7,6 +7,7 @@ package vistaControl;
 
 import persistencia.AlumnoData;
 import persistencia.Conexion;
+import persistencia.InscripcionData;
 import persistencia.MateriaData;
 
 /**
@@ -18,6 +19,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
     private Conexion conexion;
     private AlumnoData alumnoData;
     private MateriaData materiaData;
+    private InscripcionData inscripcionData;
     
     public MenuPrincipalView() {
         initComponents();
@@ -25,6 +27,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         conexion = new Conexion("jdbc:mariadb://localhost/GP19_bd_universidad", "root", "");
         alumnoData = new AlumnoData(conexion);
         materiaData = new MateriaData(conexion);
+        inscripcionData = new InscripcionData(conexion);
     }
 
     /**
@@ -39,6 +42,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         Escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuInscripciones = new javax.swing.JMenu();
+        jmiInscripciones = new javax.swing.JMenuItem();
         jMenuAlumnos = new javax.swing.JMenu();
         jMIFormAlumnos = new javax.swing.JMenuItem();
         jMenuMateria = new javax.swing.JMenu();
@@ -58,6 +62,15 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         );
 
         jMenuInscripciones.setText("Inscripciones");
+
+        jmiInscripciones.setText("Formulario Inscripciones");
+        jmiInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiInscripcionesActionPerformed(evt);
+            }
+        });
+        jMenuInscripciones.add(jmiInscripciones);
+
         jMenuBar1.add(jMenuInscripciones);
 
         jMenuAlumnos.setText("Alumnos");
@@ -121,6 +134,16 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         fmv.moveToFront();
     }//GEN-LAST:event_jmiFormularioMateriaActionPerformed
 
+    private void jmiInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInscripcionesActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        FormularioInscripcionView fim = new FormularioInscripcionView(alumnoData, materiaData, inscripcionData);
+        Escritorio.add(fim);
+        fim.setVisible(true);
+        fim.moveToFront();
+    }//GEN-LAST:event_jmiInscripcionesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -164,5 +187,6 @@ public class MenuPrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuInscripciones;
     private javax.swing.JMenu jMenuMateria;
     private javax.swing.JMenuItem jmiFormularioMateria;
+    private javax.swing.JMenuItem jmiInscripciones;
     // End of variables declaration//GEN-END:variables
 }
