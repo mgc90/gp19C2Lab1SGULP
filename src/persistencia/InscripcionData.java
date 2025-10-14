@@ -94,6 +94,37 @@ public class InscripcionData {
         
         return inscripciones;
     }
+    public List<Inscripcion> listarAlumnoSegunMateria(int idMat){
+        List<Inscripcion> listaInscripciones = new ArrayList<>();
+        
+        String query = "SELECT id_inscripto, id_alumno, nota FROM inscripcion WHERE id_materia = ?";
+        
+            try{
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setInt(1, idMat);
+                ResultSet rs = ps.executeQuery();
+                
+                
+                while(rs.next()){
+
+                    Inscripcion ins = new Inscripcion(
+                        rs.getInt("id_inscripto"),
+                        rs.getDouble("nota"),
+                        rs.getInt("id_alumno"),
+                        idMat
+                    );
+                    
+                    listaInscripciones.add(ins);
+                }
+                
+            
+            }catch(SQLException ex){
+                System.out.println("Error de conexión al tratar de obtener alumnos por materia:  " + ex.getMessage());
+            }
+        
+        
+        return listaInscripciones;
+    }
     
     public List<Materia> listarMateriasCursadas(int idAlum){
         List<Materia> materiasCursadas = new ArrayList<>();

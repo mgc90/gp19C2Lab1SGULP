@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistaControl;
 
 import persistencia.AlumnoData;
@@ -43,6 +38,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuInscripciones = new javax.swing.JMenu();
         jmiInscripciones = new javax.swing.JMenuItem();
+        ListaInscripcionView = new javax.swing.JMenuItem();
         jMenuAlumnos = new javax.swing.JMenu();
         jMIFormAlumnos = new javax.swing.JMenuItem();
         jMenuMateria = new javax.swing.JMenu();
@@ -70,6 +66,14 @@ public class MenuPrincipalView extends javax.swing.JFrame {
             }
         });
         jMenuInscripciones.add(jmiInscripciones);
+
+        ListaInscripcionView.setText("Lista Inscripciones");
+        ListaInscripcionView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListaInscripcionViewActionPerformed(evt);
+            }
+        });
+        jMenuInscripciones.add(ListaInscripcionView);
 
         jMenuBar1.add(jMenuInscripciones);
 
@@ -144,6 +148,16 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         fim.moveToFront();
     }//GEN-LAST:event_jmiInscripcionesActionPerformed
 
+    private void ListaInscripcionViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaInscripcionViewActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ListaInscripcionView liv = new ListaInscripcionView(inscripcionData,alumnoData, materiaData);
+        Escritorio.add(liv);
+        liv.setVisible(true);
+        liv.moveToFront();
+    }//GEN-LAST:event_ListaInscripcionViewActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -181,6 +195,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
+    private javax.swing.JMenuItem ListaInscripcionView;
     private javax.swing.JMenuItem jMIFormAlumnos;
     private javax.swing.JMenu jMenuAlumnos;
     private javax.swing.JMenuBar jMenuBar1;
