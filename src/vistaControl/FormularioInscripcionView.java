@@ -38,7 +38,8 @@ public class FormularioInscripcionView extends javax.swing.JInternalFrame {
         jcbAlumnos.setSelectedIndex(-1);
         jbInscribir.setEnabled(false);
         jbAnularInsc.setEnabled(false);
-        
+        jrbInscriptas.setEnabled(false);
+        jrbNoInscriptas.setEnabled(false);
     }
 
     private void cargarComboBox() {
@@ -64,10 +65,7 @@ public class FormularioInscripcionView extends javax.swing.JInternalFrame {
 
         Alumno seleccionado = (Alumno) jcbAlumnos.getSelectedItem();
         
-        if (seleccionado == null) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno");
-            return;
-        }
+        
 
         if (jrbNoInscriptas.isSelected()) {
             List<Materia> lista = inscripcionesData.listarMateriasNoCursadas(seleccionado.getIdAlumno());
@@ -80,7 +78,7 @@ public class FormularioInscripcionView extends javax.swing.JInternalFrame {
                     " - "
                 });
             }
-        } else {
+        } else if(jrbInscriptas.isSelected()){
             List<Inscripcion> listaInsc = inscripcionesData.obtenerInscripciones(seleccionado.getIdAlumno());
             for (Inscripcion ins : listaInsc) {
 
@@ -136,6 +134,11 @@ public class FormularioInscripcionView extends javax.swing.JInternalFrame {
         jLabel2.setEnabled(false);
 
         jcbAlumnos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jcbAlumnos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbAlumnosItemStateChanged(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -227,8 +230,8 @@ public class FormularioInscripcionView extends javax.swing.JInternalFrame {
                         .addGap(45, 45, 45)
                         .addComponent(jbAnularInsc, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(84, 84, 84)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -316,6 +319,13 @@ public class FormularioInscripcionView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una fila", "WARNING", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jbAnularInscActionPerformed
+
+    private void jcbAlumnosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbAlumnosItemStateChanged
+        // TODO add your handling code here:
+        cargarTabla();
+        jrbInscriptas.setEnabled(true);
+        jrbNoInscriptas.setEnabled(true);
+    }//GEN-LAST:event_jcbAlumnosItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

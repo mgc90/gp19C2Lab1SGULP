@@ -19,7 +19,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
     public MenuPrincipalView() {
         initComponents();
         
-        conexion = new Conexion("jdbc:mariadb://localhost/GP19_bd_universidad", "root", "");
+        conexion = new Conexion("jdbc:mariadb://localhost/gp19_bd_universidad", "root", "");
         alumnoData = new AlumnoData(conexion);
         materiaData = new MateriaData(conexion);
         inscripcionData = new InscripcionData(conexion);
