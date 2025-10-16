@@ -262,7 +262,6 @@ public class InscripcionData {
             System.out.println("Error al obtener nota: " + ex.getMessage());
             
         }
-        System.out.println("Modificacion realizada correctamente");
         return notaObtenida;
         
     }
