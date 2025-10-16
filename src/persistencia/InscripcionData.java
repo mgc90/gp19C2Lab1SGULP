@@ -239,5 +239,31 @@ public class InscripcionData {
     }
 
     
-    
+    public double obtenerNota(int idAlum, int idMat){
+        String query = "SELECT nota FROM inscripcion WHERE id_alumno = ? AND id_materia = ?";
+        double notaObtenida = 0;
+
+        try{
+            PreparedStatement ps = con.prepareStatement(query);
+            
+            
+            ps.setInt(1, idAlum);
+            ps.setInt(2, idMat);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                notaObtenida = rs.getDouble("nota");
+            }
+            
+            
+            
+            
+        }catch(SQLException ex){
+            System.out.println("Error al obtener nota: " + ex.getMessage());
+            
+        }
+        System.out.println("Modificacion realizada correctamente");
+        return notaObtenida;
+        
+    }
 }

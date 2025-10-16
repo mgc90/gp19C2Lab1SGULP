@@ -570,24 +570,16 @@ public class FormularioMateriaView extends javax.swing.JInternalFrame {
 
     private void jtfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyTyped
         // TODO add your handling code here:
-        /*jbGuardar.setEnabled(true);
+        if(!actualizando){
+            jbGuardar.setEnabled(true);
+            jbLimpiar.setEnabled(true);
+        }
         char c = evt.getKeyChar();
         validarLetras(c, evt);
-
-        if (actualizando && mat.getNombre().equals(jtfNombre.getText())) {
-            jbActualizar.setEnabled(false);
-        }
-        if (actualizando && !mat.getNombre().equals(jtfNombre.getText())) {
-            jbActualizar.setEnabled(true);
-        }*/
     }//GEN-LAST:event_jtfNombreKeyTyped
 
     private void jtfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyReleased
         // TODO add your handling code here:
-        jbGuardar.setEnabled(true);
-        char c = evt.getKeyChar();
-        validarLetras(c, evt);
-
         if (actualizando && mat.getNombre().equals(jtfNombre.getText())) {
             jbActualizar.setEnabled(false);
         }

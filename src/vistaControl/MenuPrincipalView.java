@@ -39,8 +39,9 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         jMenuInscripciones = new javax.swing.JMenu();
         jmiInscripciones = new javax.swing.JMenuItem();
         ListaInscripcionView = new javax.swing.JMenuItem();
-        jMenuAlumnos = new javax.swing.JMenu();
+        cargarNotas = new javax.swing.JMenu();
         jMIFormAlumnos = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuMateria = new javax.swing.JMenu();
         jmiFormularioMateria = new javax.swing.JMenuItem();
 
@@ -77,7 +78,7 @@ public class MenuPrincipalView extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuInscripciones);
 
-        jMenuAlumnos.setText("Alumnos");
+        cargarNotas.setText("Alumnos");
 
         jMIFormAlumnos.setText("Formulario Alumno");
         jMIFormAlumnos.addActionListener(new java.awt.event.ActionListener() {
@@ -85,9 +86,17 @@ public class MenuPrincipalView extends javax.swing.JFrame {
                 jMIFormAlumnosActionPerformed(evt);
             }
         });
-        jMenuAlumnos.add(jMIFormAlumnos);
+        cargarNotas.add(jMIFormAlumnos);
 
-        jMenuBar1.add(jMenuAlumnos);
+        jMenuItem1.setText("Cargar Notas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        cargarNotas.add(jMenuItem1);
+
+        jMenuBar1.add(cargarNotas);
 
         jMenuMateria.setText("Materia");
 
@@ -158,6 +167,16 @@ public class MenuPrincipalView extends javax.swing.JFrame {
         liv.moveToFront();
     }//GEN-LAST:event_ListaInscripcionViewActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        FormularioCargarNotaView liv = new FormularioCargarNotaView(alumnoData, materiaData, inscripcionData);
+        Escritorio.add(liv);
+        liv.setVisible(true);
+        liv.moveToFront();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -196,10 +215,11 @@ public class MenuPrincipalView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenuItem ListaInscripcionView;
+    private javax.swing.JMenu cargarNotas;
     private javax.swing.JMenuItem jMIFormAlumnos;
-    private javax.swing.JMenu jMenuAlumnos;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuInscripciones;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu jMenuMateria;
     private javax.swing.JMenuItem jmiFormularioMateria;
     private javax.swing.JMenuItem jmiInscripciones;

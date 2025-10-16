@@ -656,6 +656,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(!actualizando){
             jbGuardar.setEnabled(true);
+            jbLimpiar.setEnabled(true);
         }
         char dni = evt.getKeyChar();
         validarNumeros(dni, evt);

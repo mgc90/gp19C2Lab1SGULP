@@ -139,6 +139,11 @@ public class FormularioInscripcionView extends javax.swing.JInternalFrame {
                 jcbAlumnosItemStateChanged(evt);
             }
         });
+        jcbAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbAlumnosActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -326,6 +331,10 @@ public class FormularioInscripcionView extends javax.swing.JInternalFrame {
         jrbInscriptas.setEnabled(true);
         jrbNoInscriptas.setEnabled(true);
     }//GEN-LAST:event_jcbAlumnosItemStateChanged
+
+    private void jcbAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbAlumnosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
