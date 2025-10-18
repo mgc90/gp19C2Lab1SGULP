@@ -162,6 +162,9 @@
           <Font name="Dialog" size="18" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtNotaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtnGuardar">
       <Properties>

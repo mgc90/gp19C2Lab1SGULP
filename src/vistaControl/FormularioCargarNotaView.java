@@ -2,7 +2,10 @@
 package vistaControl;
 
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.Alumno;
 import modelo.Materia;
@@ -37,6 +40,7 @@ public class FormularioCargarNotaView extends javax.swing.JInternalFrame {
         jcbAlumnos.setSelectedIndex(-1);
         jcbMaterias.setSelectedIndex(-1);
         cargandoMaterias = false;
+        
     }
     private void limpiarCampos(){
         cargandoMaterias = true;
@@ -85,6 +89,24 @@ public class FormularioCargarNotaView extends javax.swing.JInternalFrame {
             }
         }
     }
+    
+    private void validarNumeros(char c, KeyEvent e) {
+        if (Character.isLetter(c)) {
+            JOptionPane.showMessageDialog(this, "Campo de valores númericos", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
+            e.consume();
+        }
+    }
+    
+    private boolean validarNota(String n) {
+        
+        Pattern patron=Pattern.compile("^\\d([.]\\d{1,2})?$");
+        Matcher m=patron.matcher(n);
+        return m.matches();
+        
+    }
+    
+ 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -133,6 +155,11 @@ public class FormularioCargarNotaView extends javax.swing.JInternalFrame {
         jLabel4.setText("Nota:");
 
         jtxtNota.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jtxtNota.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtNotaKeyTyped(evt);
+            }
+        });
 
         jbtnGuardar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jbtnGuardar.setText("Guardar Nota");
@@ -253,6 +280,24 @@ public class FormularioCargarNotaView extends javax.swing.JInternalFrame {
             cargarNotaMateriaSelec();
         }
     }//GEN-LAST:event_jcbMateriasItemStateChanged
+
+    private void jtxtNotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNotaKeyTyped
+        // TODO add your handling code here:
+        String texto = jtxtNota.getText() + evt.getKeyChar();
+        
+        try{
+            if (!texto.matches("\\d{0,2}(\\.\\d{0,2})?")) {
+                evt.consume(); 
+            }
+            double valor = Double.parseDouble(texto);
+            if (valor < 1 || valor > 10) {
+                evt.consume();
+            }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Ingrese una nota del 1 al 10 con hasta 2 decimales", "Entrada inválida", JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jtxtNotaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
